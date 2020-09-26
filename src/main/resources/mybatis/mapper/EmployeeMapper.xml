@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cf.wellod.mapper.EmployeeMapper">
+    <insert id="insertEmployee">
+        insert into Employee(name,gender,birth,tel,username,password,forbidden,rid,salt) values(#{name},#{gender},#{birth},#{tel},#{username},#{password},#{forbidden},#{rid},#{salt})
+    </insert>
+
+    <update id="updateEmployeeBaseInfo">
+        update Employee set name=#{name},gender=#{gender},birth=#{birth},tel=#{tel},username=#{username},forbidden=#{forbidden},rid=#{rid}) where id=#{id}
+    </update>
+
+    <select id="selectEmployee" resultType="cf.wellod.bean.Employee">
+        select name,gender,birth,tel,username,forbidden,rid from Employee where id=#{id}
+    </select>
+
+    <update id="updateEmployeeAllInfo">
+        update Employee set name=#{name},gender=#{gender},birth=#{birth},tel=#{tel},username=#{username},forbidden=#{forbidden},rid=#{rid}),password=#{password},salt=#{salt} where id=#{id}
+    </update>
+
+    <update id="updateEmployeePwd">
+        update Employee set password=#{password},salt=#{salt} where id=#{id}
+    </update>
+</mapper>

@@ -7,10 +7,10 @@ spring:
     # basic config
     username: sa
     #password: ABC123abc?
-    password: cxz123
+    password: mxy1234
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     #url: jdbc:sqlserver://204.44.94.180:1401;DatabaseName=MARKET
-    url: jdbc:sqlserver://localhost:1445;DatabaseName=MARKET2
+    url: jdbc:sqlserver://localhost:1433;DatabaseName=MARKET2
     type: com.alibaba.druid.pool.DruidDataSource
 
     # other config

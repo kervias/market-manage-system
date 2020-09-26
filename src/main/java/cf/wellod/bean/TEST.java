@@ -1,5 +1,6 @@
 package cf.wellod.bean;
 
 public class TEST {
-    private String kkk;
+    private String uuu;
+    private String hhh;
 }

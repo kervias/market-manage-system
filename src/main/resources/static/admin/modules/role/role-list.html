@@ -133,10 +133,10 @@
                 , offset: '100px'
                 , success: function (layero, index) {
                     layer.iframeAuto(index);
-
+                    iframe = window['layui-layer-iframe' + index];
                 }
                 , end: function () {
-                    if(iframe.bool_edit){
+                    if(iframe.bool_add){
                         table.reload('roleTable', {
                             url: '/admin/roles'
                         });

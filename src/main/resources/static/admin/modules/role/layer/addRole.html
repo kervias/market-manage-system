@@ -36,7 +36,7 @@
 <script src="/lib/layui/layui.js"></script>
 <script>
 
-    window.bool_edit = false;
+    window.bool_add = false;
     //一般直接写在一个js文件中
     layui.use(['layer', 'form', 'jquery'], function(){
         var layer = layui.layer
@@ -72,7 +72,7 @@
                             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                             parent.layer.close(index); //再执行关闭
                         });
-                        window.bool_edit = true;
+                        window.bool_add = true;
                     }else{
                         layer.msg("角色添加失败！"+rdata['msg']);
                     }

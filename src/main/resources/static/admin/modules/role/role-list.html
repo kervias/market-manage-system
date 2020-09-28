@@ -111,11 +111,7 @@
                     addFunc();
                     break;
                 case 'delete':
-                    layer.confirm('真的删除行么', function(index){
-                        layer.close(index);
-                        deleteFunc2();
-                        //向服务端发送删除指令
-                    });
+                    deleteFunc2();
                     break;
             }
 
@@ -159,29 +155,32 @@
             {
                 layer.msg("当前并未选中任何项");
             }else{
-                $.ajax({
-                    url: '/admin/role',
-                    method: 'delete',
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    data: JSON.stringify(idList),
-                    success: function (rdata) {
-                        if(rdata['code'] === 0){
-                            layer.msg("角色批量删除成功！",{
-                                icon: 1,
-                                time: 1000 //1秒关闭（如果不配置，默认是3秒）
-                            });
-                            table.reload('roleTable', {
-                                url: '/admin/roles'
-                            });
-                        }else{
-                            layer.msg("角色批量删除失败！"+rdata['msg']);
+                layer.confirm('真的删除行么', function(index){
+                    layer.close(index);
+                    $.ajax({
+                        url: '/admin/role',
+                        method: 'delete',
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify(idList),
+                        success: function (rdata) {
+                            if(rdata['code'] === 0){
+                                layer.msg("角色批量删除成功！",{
+                                    icon: 1,
+                                    time: 1000 //1秒关闭（如果不配置，默认是3秒）
+                                });
+                                table.reload('roleTable', {
+                                    url: '/admin/roles'
+                                });
+                            }else{
+                                layer.msg("角色批量删除失败！"+rdata['msg']);
+                            }
+                        },
+                        error: function (msg) {
+                            layer.msg("服务器无响应 msg:"+msg);
                         }
-                    },
-                    error: function (msg) {
-                        layer.msg("服务器无响应 msg:"+msg);
-                    }
-                })
+                    })
+                });
             }
         };
 

@@ -31,24 +31,20 @@
             <div class="layui-card">
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5">
+<!--                        <div class="layui-inline layui-show-xs-block">-->
+<!--                            <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">-->
+<!--                        </div>-->
+<!--                        <div class="layui-inline layui-show-xs-block">-->
+<!--                            <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">-->
+<!--                        </div>-->
                         <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                            <input type="text" name="username"  placeholder="请输入供应商名" autocomplete="off" class="layui-input">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
                             <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
                         </div>
                     </form>
                 </div>
-<!--                <div class="layui-card-header">-->
-<!--                    <button type="button" class="layui-btn layui-btn-sm" id="addSupp" lay-event="add">增加</button>-->
-<!--                    <button type="button" class="layui-btn layui-btn-sm" id="deleteSupps" lay-event="delete">批量删除</button>-->
-<!--                </div>-->
                 <div class="layui-card-body layui-table-body layui-table-main">
                     <table class="layui-hide" lay-filter="suppTable" id="suppTable"></table>
                 </div>
@@ -95,7 +91,7 @@
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {type: 'numbers', fixed: 'left', 'title': '序号'},
-                {field: 'id', title: 'ID',sort: true,width:40},
+                {field: 'id', title: 'ID',sort: true,width:40,hide:true},
                 {field: 'name', title: '供应商名', width:100},
                 {field: 'address', title: '供应商地址'},
                 {field: 'tel', title: '供应商电话',width:150}
@@ -112,11 +108,7 @@
                     addFunc();
                     break;
                 case 'delete':
-                    layer.confirm('真的删除行么', function(index){
-                        layer.close(index);
-                        deleteFunc2();
-                        //向服务端发送删除指令
-                    });
+                    deleteFunc2();
                     break;
             }
 
@@ -124,22 +116,24 @@
 
 
         var addFunc = function () {
+            var iframe;
             layer.open({
                 type: 2
                 , title: '添加供应商'
-                , content: ['/test/addSupp.html', 'no']
+                , content: ['/admin/modules/supplier/layer/addSupp.html', 'no']
                 , maxmin: true
                 , area: '600px'
                 , offset: '100px'
                 , success: function (layero, index) {
                     layer.iframeAuto(index);
-
+                    iframe = window['layui-layer-iframe' + index];
                 }
                 , end: function () {
-                    table.reload('suppTable', {
-                        url: '/admin/supps'
-                    });
-                    //table.reload('#suppTable', {});
+                    if(iframe.bool_edit){
+                        table.reload('suppTable', {
+                            url: '/admin/supps'
+                        });
+                    }
                 }
             })
         };
@@ -157,29 +151,33 @@
             {
                 layer.msg("当前并未选中任何项");
             }else{
-                $.ajax({
-                    url: '/admin/supp',
-                    method: 'delete',
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    data: JSON.stringify(idList),
-                    success: function (rdata) {
-                        if(rdata['code'] === 0){
-                            layer.msg("供应商批量删除成功！",{
-                                icon: 1,
-                                time: 1000 //1秒关闭（如果不配置，默认是3秒）
-                            });
-                            table.reload('suppTable', {
-                                url: '/admin/supps'
-                            });
-                        }else{
-                            layer.msg("供应商批量删除失败！"+rdata['msg']);
+                layer.confirm('真的删除行么', function(index){
+                    $.ajax({
+                        url: '/admin/supp',
+                        method: 'delete',
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify(idList),
+                        success: function (rdata) {
+                            if(rdata['code'] === 0){
+                                layer.msg("供应商批量删除成功！",{
+                                    icon: 1,
+                                    time: 1000 //1秒关闭（如果不配置，默认是3秒）
+                                });
+                                table.reload('suppTable', {
+                                    url: '/admin/supps'
+                                });
+                            }else{
+                                layer.msg("供应商批量删除失败！"+rdata['msg']);
+                            }
+                        },
+                        error: function (msg) {
+                            layer.msg("服务器无响应 msg:"+msg);
                         }
-                    },
-                    error: function (msg) {
-                        layer.msg("服务器无响应 msg:"+msg);
-                    }
-                })
+                    });
+                    layer.close(index);
+                });
+
             }
         };
 
@@ -243,7 +241,7 @@
             layer.open({
                 type: 2,
                 title: '更改供应商信息',
-                content: ['/test/updateSupp.html', 'no']
+                content: ['/admin/modules/supplier/layer/updateSupp.html', 'no']
                 , maxmin: true
                 , area: '600px'
                 , offset: '100px',

@@ -15,27 +15,7 @@
         update Role set name=#{name},info=#{info} where id=#{id}
     </update>
 
-    <delete id="deleteRoleById">
+    <delete id="deleteRole">
         delete from Role where id=#{id}
     </delete>
-
-    <select id="getRolesCount" resultType="_integer">
-        select count(*) from Role
-    </select>
-
-    <select id="getEmpsByRange" resultType="cf.wellod.bean.Role">
-        select top ${num} * from Role where id not in (select top ${start-1} id from Role)
-    </select>
-
-    <update id="updateRole">
-        update Role set name=#{name},info=#{info} where id=#{id}
-    </update>
-
-    <delete id="deleteRoles">
-        delete from Role where id in
-        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </delete>
-
 </mapper>

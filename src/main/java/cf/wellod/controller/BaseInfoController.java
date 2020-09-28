@@ -1,7 +1,7 @@
 package cf.wellod.controller;
 
 
-import cf.wellod.mapper.InfoMapper;
+import cf.wellod.mapper.BaseInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.core.SpringVersion;
@@ -17,10 +17,10 @@ import java.util.HashMap;
 @Controller
 @ResponseBody
 @RequestMapping("/common")
-public class Common {
+public class BaseInfoController {
 
     @Autowired
-    private InfoMapper infoMapper;
+    private BaseInfoMapper baseInfoMapper;
 
     // 获取系统配置信息
     @GetMapping("/sysinfo")
@@ -32,7 +32,7 @@ public class Common {
         sysJson.put("操作系统",System.getProperty("os.name"));
         sysJson.put("Spring版本",SpringVersion.getVersion());
         sysJson.put("SpringBoot版本",SpringBootVersion.getVersion());
-        String databaseInfo = infoMapper.getVersion();
+        String databaseInfo = baseInfoMapper.getVersion();
         if(databaseInfo.contains("SQL Server")){
             databaseInfo = databaseInfo.split(" -")[0];
         }

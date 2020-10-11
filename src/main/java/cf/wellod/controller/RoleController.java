@@ -40,6 +40,24 @@ public class RoleController {
         return retJson;
     }
 
+    //更新数据
+    @GetMapping("/admin/roless")
+    public HashMap<String,Object> getRolesTwo(){
+        HashMap<String,Object> retJson = new HashMap<>();
+        try{
+            retJson.put("code", 0);
+            retJson.put("msg", "success");
+            //retJson.put("count", count);
+            List<Role> list = roleMapper.getRoles();
+            retJson.put("data",list);
+            System.out.println(list);
+        }catch (Exception e){
+            retJson.put("code", -1);
+            retJson.put("msg", "failed");
+            retJson.put("data", new ArrayList<Role>());
+        }
+        return retJson;
+    }
     //更新role表格数据
     @GetMapping("/admin/roles")
     public HashMap<String,Object> getRoles(@RequestParam("page")Integer page, @RequestParam("limit") Integer limit){
@@ -59,7 +77,7 @@ public class RoleController {
             retJson.put("data", list);
             System.out.println(list);
         }else{
-            retJson.put("code", 0);
+            retJson.put("code", -1);
             retJson.put("msg", "failed");
             retJson.put("count", 0);
             retJson.put("data", new ArrayList<Role>());

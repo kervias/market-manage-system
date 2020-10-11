@@ -22,6 +22,9 @@ public interface RoleMapper {
     // 查询某个范围内的数据
     public List<Role> getEmpsByRange(Integer start, Integer num);
 
+    //查询表中的所有数据
+    public List<Role> getRoles();
+
     // 批量删除某些Roles
     public void deleteRoles(List<Integer> delIdList);
 

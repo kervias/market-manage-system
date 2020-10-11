@@ -3,6 +3,8 @@ package cf.wellod.mapper;
 import cf.wellod.bean.Employee;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface EmployeeMapper {
     // 插入一个Employee
@@ -21,7 +23,18 @@ public interface EmployeeMapper {
     public void updateEmloyeePwd(String pwd, String salt, Integer id);
 
     // 删除Employee
-    public void deleteEmployee(Integer id);
+    public void deleteEmployeeById(Integer id);
 
+    // 查询某个范围内的数据
+    public List<Employee> getEmpsByRange(Integer start, Integer num);
+
+    // 获取表中的数据项个数
+    public  Integer getEmployeesCount();
+
+    //批量删除用户
+    public void deleteEmployees(List<Integer> delIdList);
+
+    //更新用户
+    public void updateEmployee(Employee employee);
 
 }

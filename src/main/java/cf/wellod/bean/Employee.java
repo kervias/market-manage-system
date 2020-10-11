@@ -1,14 +1,18 @@
 package cf.wellod.bean;
 
+//import cf.wellod.mapper.RoleMapper;
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
+import java.util.List;
 
 public class Employee {
     private Integer id;
     private String name;
     private boolean gender;
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
     private String tel;
     private String username;
@@ -17,6 +21,15 @@ public class Employee {
     private boolean forbidden;
     private Integer rid;
     private String salt;
+    //private String rolename;
+
+//    public String getRolename() {
+//        return rolename;
+//    }
+//
+//    public void setRolename(String rolename) {
+//        this.rolename = rolename;
+//    }
 
     public Integer getId() {
         return id;
@@ -44,6 +57,7 @@ public class Employee {
                 ", forbidden=" + forbidden +
                 ", rid=" + rid +
                 ", salt='" + salt + '\'' +
+                //", rolename='" + rolename + '\'' +
                 '}';
     }
 
@@ -63,12 +77,21 @@ public class Employee {
         return gender;
     }
 
+    public boolean getGender(){
+        /*if(this.gender == false){
+            return "男";
+        }else {
+            return "女";
+        }*/
+        return gender;
+    }
+
     public void setGender(boolean gender) {
         this.gender = gender;
     }
 
-    public Date getBirth() {
-        return birth;
+    public Date getBirth(){
+        return this.birth;
     }
 
     public void setBirth(Date birth) {
@@ -103,13 +126,31 @@ public class Employee {
         return forbidden;
     }
 
+    public boolean getForbidden(){
+        /*if(this.forbidden == false){
+            return "否";
+        }else {
+            return "是";
+        }*/
+        return forbidden;
+    }
+
     public void setForbidden(boolean forbidden) {
         this.forbidden = forbidden;
     }
 
-    public Integer getRid() {
+
+    public Integer getRid(){
         return rid;
     }
+
+    /*public String getRid2() {
+
+        System.out.println("hhhhhhhaaa");
+        Role role = roleMapper.selectRole(this.rid);
+        System.out.println(role.getName());
+        return role.getName();
+    }*/
 
     public void setRid(Integer rid) {
         this.rid = rid;

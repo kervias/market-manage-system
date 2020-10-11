@@ -4,11 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cf.wellod.mapper.EmployeeMapper">
     <insert id="insertEmployee">
-        insert into Employee(name,gender,birth,tel,username,password,forbidden,rid,salt) values(#{name},#{gender},#{birth},#{tel},#{username},#{password},#{forbidden},#{rid},#{salt})
+        insert into Employee(name,gender,birth,tel,username,password,email,forbidden,rid,salt) values(#{name},#{gender},#{birth},#{tel},#{username},#{password},#{email},#{forbidden},#{rid},#{salt})
     </insert>
 
     <update id="updateEmployeeBaseInfo">
         update Employee set name=#{name},gender=#{gender},birth=#{birth},tel=#{tel},username=#{username},forbidden=#{forbidden},rid=#{rid}) where id=#{id}
+    </update>
+
+    <update id="updateEmployee">
+        update Employee set name=#{name},gender=#{gender},birth=#{birth},tel=#{tel},username=#{username},password=#{password},email=#{email},forbidden=#{forbidden},rid=#{rid},salt=#{salt} where id=#{id}
     </update>
 
     <select id="selectEmployee" resultType="cf.wellod.bean.Employee">
@@ -22,4 +26,41 @@
     <update id="updateEmployeePwd">
         update Employee set password=#{password},salt=#{salt} where id=#{id}
     </update>
+
+    <select id="getEmpsByRange" resultType="cf.wellod.bean.Employee">
+--         select top ${num} e.id eid,e.name ename,e.gender egender,e.birth ebirth,e.tel etel,
+--           e.username eusername,e.email eemail,e.password epassword,e.forbidden eforbidden,e.rid erid,e.salt esalt,r.name rname
+--         from Employee e left join Role r on e.rid = r.id where e.id not in (select top ${start-1} id from Employee)
+        select top ${num} * from Employee where id not in (select top ${start-1} id from Employee)
+    </select>
+
+<!--    <resultMap id="myemployee" type="cf.wellod.bean.Employee">-->
+<!--        <id property="id" column="eid"></id>-->
+<!--        <result property="name" column="ename"></result>-->
+<!--        <result property="gender" column="egender"></result>-->
+<!--        <result property="birth" column="ebirth"></result>-->
+<!--        <result property="tel" column="etel"></result>-->
+<!--        <result property="username" column="eusername"></result>-->
+<!--        <result property="email" column="eemail"></result>-->
+<!--        <result property="password" column="epassword"></result>-->
+<!--        <result property="forbidden" column="eforbidden"></result>-->
+<!--        <result property="rid" column="erid"></result>-->
+<!--        <result property="salt" column="esalt"></result>-->
+<!--        <result property="rolename" column="rname"></result>-->
+<!--    </resultMap>-->
+
+    <select id="getEmployeesCount" resultType="_integer">
+        select count(*) from Employee
+    </select>
+
+    <delete id="deleteEmployeeById">
+        delete from Employee where id=#{id}
+    </delete>
+
+    <delete id="deleteEmployees">
+        delete from Employee where id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>

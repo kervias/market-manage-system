@@ -27,6 +27,10 @@
         select top ${num} * from Role where id not in (select top ${start-1} id from Role)
     </select>
 
+    <select id="getRoles" resultType="cf.wellod.bean.Role">
+        select * from Role
+    </select>
+
     <update id="updateRole">
         update Role set name=#{name},info=#{info} where id=#{id}
     </update>

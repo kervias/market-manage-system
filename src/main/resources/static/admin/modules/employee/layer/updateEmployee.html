@@ -49,7 +49,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">密码</label>
                 <div class="layui-input-inline">
-                    <input type="password" name="password" id="employee_password" lay-verify="pass" placeholder="请输入密码"
+                    <input type="password" name="password" id="employee_password" lay-verify="required" placeholder="请输入密码"
                            autocomplete="off" class="layui-input">
                 </div>
                 <!--<div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>-->
@@ -94,7 +94,7 @@
 
 
     window.bool_emp_edit = false;
-    var rid;
+
 
     window.transfer_data = function (data) {
         window.render_data = data;
@@ -113,6 +113,8 @@
                 elem: '#birth'
             });
 
+
+            var rid;
             function init_render_data() {
                 var data = window.render_data;
                 document.getElementById("employee_id").value = data.id;

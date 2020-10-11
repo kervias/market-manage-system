@@ -15,7 +15,7 @@ public class GoodsInfo {
         this.sid = sid;
     }
 
-    public int getCid() {
+    public Integer getCid() {
         return cid;
     }
 

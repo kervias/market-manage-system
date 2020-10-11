@@ -1,11 +1,7 @@
 package cf.wellod.service;
 
-import cf.wellod.bean.Employee;
 import cf.wellod.bean.Role;
-import cf.wellod.mapper.EmployeeMapper;
 import cf.wellod.mapper.RoleMapper;
-import cf.wellod.utils.CommonUtil;
-import cf.wellod.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,21 +9,35 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
-public class EmployeeService {
-
-    @Autowired
-    EmployeeMapper employeeMapper;
+public class RoleService {
 
     @Autowired
     RoleMapper roleMapper;
 
     @Transactional
-    public Object getEmployees(Integer page,Integer limit){
+    public HashMap<String,Object> getRolesTwo(){
         HashMap<String,Object> retJson = new HashMap<>();
-        Integer count = employeeMapper.getEmployeesCount();
+        try{
+            retJson.put("code", 0);
+            retJson.put("msg", "success");
+            //retJson.put("count", count);
+            List<Role> list = roleMapper.getRoles();
+            retJson.put("data",list);
+            System.out.println(list);
+        }catch (Exception e){
+            retJson.put("code", -1);
+            retJson.put("msg", "failed");
+            retJson.put("data", new ArrayList<Role>());
+        }
+        return retJson;
+    }
+
+    @Transactional
+    public HashMap<String,Object> getRoles(Integer page, Integer limit){
+        HashMap<String,Object> retJson = new HashMap<>();
+        Integer count = roleMapper.getRolesCount();
         if(count >= 0 && limit > 0 && page > 0)
         {
             int pageNum = (int)Math.ceil(count.floatValue()/limit);
@@ -38,36 +48,26 @@ public class EmployeeService {
             retJson.put("code", 0);
             retJson.put("msg", "success");
             retJson.put("count", count);
-            List<Employee> list_1 = employeeMapper.getEmpsByRange(start,limit);
-            List<Object> list = new ArrayList<>();
-            Map<String,Object> retData = new HashMap<String,Object>();
-            Role role;
-            for(Employee employee : list_1){
-                retData = CommonUtil.getFiledInfo(employee);
-                role = roleMapper.selectRole(employee.getRid());
-                retData.put("rolename",role.getName());
-                list.add(retData);
-            }
-
+            List<Role> list = roleMapper.getEmpsByRange(start,limit);
             retJson.put("data", list);
             System.out.println(list);
         }else{
             retJson.put("code", -1);
             retJson.put("msg", "failed");
             retJson.put("count", 0);
-            retJson.put("data", new ArrayList<Employee>());
+            retJson.put("data", new ArrayList<Role>());
         }
 
         return retJson;
     }
 
     @Transactional
-    public Object deleteEmployees(List<Integer> list){
+    public Object deleteRoles(List<Integer> list){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
             if(list.size() != 0)
             {
-                employeeMapper.deleteEmployees(list);
+                roleMapper.deleteRoles(list);
                 retJson.put("code", 0);
                 retJson.put("msg", "success");
             }else{
@@ -83,10 +83,10 @@ public class EmployeeService {
     }
 
     @Transactional
-    public HashMap<String,Object> deleteEmployeeById(Integer id){
+    public HashMap<String,Object> deleteRoleById(Integer id){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
-            employeeMapper.deleteEmployeeById(id);
+            roleMapper.deleteRoleById(id);
             retJson.put("code", 0);
             retJson.put("msg", "success");
         }catch (Exception e){
@@ -97,36 +97,31 @@ public class EmployeeService {
     }
 
     @Transactional
-    public HashMap<String,Object> insertEmployee(Employee employee){
+    public HashMap<String,Object> insertRole(Role role){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
-        MD5Util.convertPwd(employee);
-        if(employee.getName() != null  && employee.getId() == null && employee.getTel() != null
-                && employee.getUsername() != null && employee.getPassword() != null && employee.getEmail() != null)
+        if(role.getName() != null && role.getInfo() != null && role.getId() == null)
         {
             retJson.put("code", 0);
             retJson.put("msg", "操作成功");
             try{
-                employeeMapper.insertEmployee(employee);
+                roleMapper.insertRole(role);
             }catch (Exception e){
                 System.out.println(e);
                 retJson.put("code", -1);
                 retJson.put("msg", "操作失败");
             }
         }else{
-            System.out.println("nijao");
             retJson.put("code", -1);
             retJson.put("msg", "操作失败");
         }
-
         return retJson;
     }
 
     @Transactional
-    public Object updateEmployee(Employee employee){
+    public Object updateRole(Role role){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
-        MD5Util.convertPwd(employee);
         try{
-            employeeMapper.updateEmployee(employee);
+            roleMapper.updateRole(role);
             retJson.put("code", 0);
             retJson.put("msg", "success");
         }catch (Exception e){

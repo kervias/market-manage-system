@@ -1,7 +1,7 @@
 package cf.wellod.service;
 
-import cf.wellod.bean.WareHouse;
-import cf.wellod.mapper.WareHouseMapper;
+import cf.wellod.bean.Supplier;
+import cf.wellod.mapper.SupplierMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,15 +11,35 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class WareHouseService {
+public class SupplierService {
 
     @Autowired
-    WareHouseMapper wareHouseMapper;
+    SupplierMapper supplierMapper;
 
     @Transactional
-    public HashMap<String,Object> getWareHouseByRange(Integer page,Integer limit){
+    public HashMap<String,Object> addSupp(Supplier supplier){
+        HashMap<String,Object> retJson = new HashMap<String,Object>();
+        try{
+            if(supplier.getName() != null && supplier.getAddress() != null && supplier.getTel() != null && supplier.getId() == null)
+            {
+                retJson.put("code", 0);
+                retJson.put("msg", "success");
+                supplierMapper.insertSupp(supplier);
+            }else{
+                retJson.put("code", -1);
+                retJson.put("msg", "invalid");
+            }
+        }catch (Exception e){
+            retJson.put("code", -1);
+            retJson.put("msg", "failed");
+        }
+        return retJson;
+    }
+
+    @Transactional
+    public HashMap<String,Object> getSuppsByRange(Integer page,Integer limit){
         HashMap<String,Object> retJson = new HashMap<>();
-        Integer count = wareHouseMapper.getWareHousesCount();
+        Integer count = supplierMapper.getSuppCount();
         try{
             if(count >= 0 && limit > 0 && page > 0){
                 int pageNum = (int)Math.ceil(count.floatValue()/limit);
@@ -30,72 +50,30 @@ public class WareHouseService {
                 retJson.put("code", 0);
                 retJson.put("msg", "success");
                 retJson.put("count", count);
-                List<WareHouse> list = wareHouseMapper.getWareHousesByRange(start,limit);
+                List<Supplier> list = supplierMapper.getEmpsByRange(start,limit);
                 retJson.put("data", list);
                 System.out.println(list);
             }else{
                 retJson.put("code", -1);
                 retJson.put("msg", "invalid");
                 retJson.put("count", 0);
-                retJson.put("data", new ArrayList<WareHouse>());
+                retJson.put("data", new ArrayList<Supplier>());
             }
         }catch (Exception e){
             retJson.put("code",-1);
             retJson.put("msg","failed");
             retJson.put("count",0);
-            retJson.put("data",new ArrayList<WareHouse>());
+            retJson.put("data",new ArrayList<Supplier>());
         }
 
         return retJson;
     }
 
     @Transactional
-    public HashMap<String,Object> addWareHouse(WareHouse wareHouse){
+    public HashMap<String,Object> deleteSuppById(Integer id){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
-            if(wareHouse.getId() == null && wareHouse.getName() != null && wareHouse.getInfo() != null
-               && wareHouse.getAddress() != null){
-                retJson.put("code", 0);
-                retJson.put("msg", "success");
-                wareHouseMapper.addWareHouse(wareHouse);
-            }else{
-                retJson.put("code",-1);
-                retJson.put("msg","invalid");
-            }
-        }catch (Exception e){
-            retJson.put("code",-1);
-            retJson.put("msg","failed");
-        }
-
-        return retJson;
-    }
-
-    @Transactional
-    public HashMap<String,Object> updateWareHouse(WareHouse wareHouse){
-        HashMap<String,Object> retJson = new HashMap<String,Object>();
-        try{
-            if(wareHouse.getId() != null && wareHouse.getName() != null && wareHouse.getInfo() != null
-                    && wareHouse.getAddress() != null){
-                retJson.put("code", 0);
-                retJson.put("msg", "success");
-                wareHouseMapper.updateWareHouse(wareHouse);
-            }else{
-                retJson.put("code",-1);
-                retJson.put("msg","invalid");
-            }
-        }catch (Exception e){
-            retJson.put("code",-1);
-            retJson.put("msg","failed");
-        }
-
-        return retJson;
-    }
-
-    @Transactional
-    public HashMap<String,Object> deleteWareHouseById(Integer id){
-        HashMap<String,Object> retJson = new HashMap<String,Object>();
-        try{
-            wareHouseMapper.deleteWareHouseById(id);
+            supplierMapper.deleteSuppById(id);
             retJson.put("code", 0);
             retJson.put("msg", "success");
         }catch (Exception e){
@@ -106,12 +84,33 @@ public class WareHouseService {
     }
 
     @Transactional
-    public HashMap<String,Object> deleteWareHousesBatch(List<Integer> list){
+    public HashMap<String,Object> updateSupp(Supplier supplier){
+        HashMap<String,Object> retJson = new HashMap<String,Object>();
+        try{
+            if(supplier.getId() != null && supplier.getName() != null && supplier.getAddress() != null
+                    && supplier.getTel() != null){
+                retJson.put("code", 0);
+                retJson.put("msg", "success");
+                supplierMapper.updateSupp(supplier);
+            }else{
+                retJson.put("code",-1);
+                retJson.put("msg","invalid");
+            }
+        }catch (Exception e){
+            retJson.put("code",-1);
+            retJson.put("msg","failed");
+        }
+
+        return retJson;
+    }
+
+    @Transactional
+    public HashMap<String,Object> deleteSupps(List<Integer> list){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
             if(list.size() != 0)
             {
-                wareHouseMapper.deleteWareHouseBatch(list);
+                supplierMapper.deleteSupps(list);
                 retJson.put("code", 0);
                 retJson.put("msg", "success");
             }else{
@@ -127,19 +126,19 @@ public class WareHouseService {
     }
 
     @Transactional
-    public HashMap<String,Object> getWareHousesAll(){
+    public HashMap<String,Object> getSuppsAll(){
         HashMap<String,Object> retJson = new HashMap<>();
         try{
             retJson.put("code", 0);
             retJson.put("msg", "success");
             //retJson.put("count", count);
-            List<WareHouse> list = wareHouseMapper.getWareHousesAll();
+            List<Supplier> list = supplierMapper.getSuppsAll();
             retJson.put("data",list);
             System.out.println(list);
         }catch (Exception e){
             retJson.put("code", -1);
             retJson.put("msg", "failed");
-            retJson.put("data", new ArrayList<WareHouse>());
+            retJson.put("data", new ArrayList<Supplier>());
         }
         return retJson;
     }

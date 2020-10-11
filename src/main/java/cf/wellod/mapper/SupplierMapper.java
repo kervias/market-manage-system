@@ -28,4 +28,7 @@ public interface SupplierMapper {
 
     // 更新某个Supplier信息
     public void updateSupp(Supplier supplier);
+
+    //获取表中所有记录
+    public List<Supplier> getSuppsAll();
 }

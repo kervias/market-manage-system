@@ -37,7 +37,7 @@ public class WareHouseController {
 
     @DeleteMapping("/admin/warehouses")
     public Object deleteWareHousesBatch(@RequestBody List<Integer> list){
-        return wareHouseService.deleteWareHouseBatch(list);
+        return wareHouseService.deleteWareHousesBatch(list);
     }
 
     @GetMapping("/admin/warehouses_all")

@@ -34,4 +34,8 @@
         </foreach>
     </delete>
 
+    <select id="getSuppsAll" resultType="cf.wellod.bean.Supplier">
+        select * from Supplier
+    </select>
+
 </mapper>

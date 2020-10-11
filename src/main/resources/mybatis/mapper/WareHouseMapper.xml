@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cf.wellod.mapper.WareHouseMapper">
+
+    <select id="getWareHousesByRange" resultType="cf.wellod.bean.WareHouse">
+        select top ${num} * from WareHouse where id not in (select top ${start-1} id from WareHouse)
+    </select>
+
+    <select id="getWareHousesCount" resultType="_integer">
+        select count(*) from WareHouse
+    </select>
+
+    <select id="getWareHousesAll" resultType="cf.wellod.bean.WareHouse">
+        select * from WareHouse
+    </select>
+
+    <insert id="addWareHouse">
+        insert into WareHouse(name,info,address) values(#{name},#{info},#{address})
+    </insert>
+
+    <update id="updateWareHouse">
+        update WareHouse set name=#{name},info=#{info},address=#{address} where id=#{id}
+    </update>
+
+    <delete id="deleteWareHouseById">
+        delete from WareHouse where id=#{id}
+    </delete>
+
+    <delete id="deleteWareHouseBatch">
+        delete from WareHouse where id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+
+
+</mapper>

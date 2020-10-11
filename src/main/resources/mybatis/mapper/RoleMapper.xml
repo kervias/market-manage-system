@@ -11,10 +11,6 @@
         select * from Role where id=#{id};
     </select>
 
-    <update id="updateROle">
-        update Role set name=#{name},info=#{info} where id=#{id}
-    </update>
-
     <delete id="deleteRoleById">
         delete from Role where id=#{id}
     </delete>
@@ -23,7 +19,7 @@
         select count(*) from Role
     </select>
 
-    <select id="getEmpsByRange" resultType="cf.wellod.bean.Role">
+    <select id="getRolesByRange" resultType="cf.wellod.bean.Role">
         select top ${num} * from Role where id not in (select top ${start-1} id from Role)
     </select>
 

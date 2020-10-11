@@ -48,7 +48,7 @@ public class RoleService {
             retJson.put("code", 0);
             retJson.put("msg", "success");
             retJson.put("count", count);
-            List<Role> list = roleMapper.getEmpsByRange(start,limit);
+            List<Role> list = roleMapper.getRolesByRange(start,limit);
             retJson.put("data", list);
             System.out.println(list);
         }else{

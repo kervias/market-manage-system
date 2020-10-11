@@ -1,5 +1,7 @@
 package cf.wellod.bean;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Category {
     Integer id;
     String name;
@@ -17,7 +19,7 @@ public class Category {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = StringUtils.trimToNull(name);
     }
 
     @Override

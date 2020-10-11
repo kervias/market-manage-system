@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cf.wellod.mapper.GoodsCategoryMapper">
+    <insert id="addCategory">
+        insert into Category(name) values(#{name})
+    </insert>
+
+    <update id="updateCategory">
+        update Category set name=#{name} where id=#{id}
+    </update>
+
+    <delete id="deleteCategoryById">
+        delete from Category where id=#{id}
+    </delete>
+
+    <select id="getCategoriesCount" resultType="_integer">
+        select count(*) from Category
+    </select>
+
+    <select id="getCategoriesByRange" resultType="cf.wellod.bean.Category">
+        select top ${num} * from Category where id not in (select top ${start-1} id from Category)
+    </select>
+
+    <select id="getCategoriesAll" resultType="cf.wellod.bean.Category">
+        select * from Category
+    </select>
+
+    <delete id="deleteCategoriesBatch">
+        delete from Category where id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>

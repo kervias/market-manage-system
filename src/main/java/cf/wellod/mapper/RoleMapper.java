@@ -20,7 +20,7 @@ public interface RoleMapper {
     public  Integer getRolesCount();
 
     // 查询某个范围内的数据
-    public List<Role> getEmpsByRange(Integer start, Integer num);
+    public List<Role> getRolesByRange(Integer start, Integer num);
 
     //查询表中的所有数据
     public List<Role> getRoles();

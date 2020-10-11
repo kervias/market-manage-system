@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @Controller
-public class TestController {
+public class SupplierController {
 
     @Autowired
     SupplierMapper supplierMapper;

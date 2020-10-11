@@ -34,4 +34,7 @@
         </foreach>
     </delete>
 
+    <select id="getCategoryById" resultType="cf.wellod.bean.Category">
+        select * from Category where id=#{id};
+    </select>
 </mapper>

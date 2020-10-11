@@ -3,7 +3,9 @@ package cf.wellod.service;
 import cf.wellod.bean.Category;
 import cf.wellod.bean.GoodsInfo;
 import cf.wellod.bean.Supplier;
+import cf.wellod.mapper.GoodsCategoryMapper;
 import cf.wellod.mapper.GoodsInfoMapper;
+import cf.wellod.mapper.SupplierMapper;
 import cf.wellod.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,12 @@ public class GoodsInfoService {
 
     @Autowired
     GoodsInfoMapper goodsInfoMapper;
+
+    @Autowired
+    SupplierMapper supplierMapper;
+
+    @Autowired
+    GoodsCategoryMapper goodsCategoryMapper;
 
     // 添加一条记录
     public HashMap<String, Object> addGoodsInfo(GoodsInfo goodsInfo){
@@ -117,16 +125,16 @@ public class GoodsInfoService {
             Map<String,Object> retData;
             Supplier supplier;
             Category category;
-//            for(GoodsInfo goodsInfo : list_1){
-//                retData = CommonUtil.getFiledInfo(goodsInfo);
-//
-//
-//                role = roleMapper.selectRole(employee.getRid());
-//                retData.put("rolename",role.getName());
-//                list.add(retData);
-//            }
+            for(GoodsInfo goodsInfo : list_1){
+                retData = CommonUtil.getFiledInfo(goodsInfo);
+                supplier = supplierMapper.getSuppById(goodsInfo.getSid());
+                category = goodsCategoryMapper.getCategoryById(goodsInfo.getCid());
+                retData.put("suppName",supplier.getName());
+                retData.put("categoryName", category.getName());
+                list.add(retData);
+            }
 
-            retJson.put("data", list_1);
+            retJson.put("data", list);
             System.out.println(list);
         }else{
             retJson.put("code", 0);

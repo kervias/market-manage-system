@@ -28,4 +28,6 @@ public interface GoodsCategoryMapper {
 
     // 查询所有Categories
     public List<Category> getCategoriesAll();
+
+    public Category getCategoryById(Integer id);
 }

@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class CommonUtil {
     public static Map<String,Object> getFiledInfo(Object o) {
@@ -15,7 +16,7 @@ public class CommonUtil {
         return parameters;
     }
 
-    public static  Object getFieldValueByName(String fieldName,Object o) {
+    public static Object getFieldValueByName(String fieldName,Object o) {
         try {
             String firstLetter = fieldName.substring(0, 1).toUpperCase();
             String getter = "get" + firstLetter + fieldName.substring(1);
@@ -27,6 +28,11 @@ public class CommonUtil {
         }
     }
 
+    // 通过生产批次生成商品ID
+    public static String generateGoodsIdByBatch(String batch){
+        String uuid = UUID.randomUUID().toString().substring(0,4);
+        return batch + uuid;
+    }
 }
 
 

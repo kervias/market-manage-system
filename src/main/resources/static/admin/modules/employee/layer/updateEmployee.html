@@ -9,77 +9,82 @@
 
 <div class="layui-container">
     <div class="layui-row">
-<form class="layui-form" style="margin-top: 20px">
-    <input type="hidden" name="id" value="" id="employee_id">
-    <div class="layui-form-item">
-        <label class="layui-form-label">姓名</label>
-        <div class="layui-input-block">
-            <input type="text" name="name" id="employee_name" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">性别</label>
-        <div class="layui-input-block">
-            <input type="radio" name="gender"  value="false" title="男" >
-            <input type="radio" name="gender"  value="true" title="女" >
-            <!--<input type="radio" name="sex" value="禁" title="禁用" disabled="">-->
-        </div>
-    </div>
-    <div class="layui-inline">
-        <label class="layui-form-label">出生日期</label>
-        <div class="layui-input-inline">
-            <input type="text" class="layui-input" id="birth" name="birth" placeholder="yyyy-MM-dd">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">电话</label>
-        <div class="layui-input-block">
-            <input type="text" name="tel" id="employee_tel" lay-verify="required|telephone" placeholder="请输入电话" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">用户名</label>
-        <div class="layui-input-block">
-            <input type="text" name="username"  id="employee_username" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">密码</label>
-        <div class="layui-input-inline">
-            <input type="password" name="password" id="employee_password" lay-verify="pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
-        </div>
-        <!--<div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>-->
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">邮箱</label>
-        <div class="layui-input-block">
-            <input type="text" name="email"  id="employee_email" lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">禁止访问</label>
-        <div class="layui-input-block">
-            <input type="radio" name="forbidden" value="false" title="否">
-            <input type="radio" name="forbidden" value="true" title="是">
-            <!--<input type="radio" name="sex" value="禁" title="禁用" disabled="">-->
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">角色</label>
-        <div class="layui-input-block">
-            <select name="rid" id="employee_rid" lay-filter="aihao">
-            </select>
-        </div>
-    </div>
+        <form class="layui-form" style="margin-top: 20px">
+            <input type="hidden" name="id" value="" id="employee_id">
+            <div class="layui-form-item">
+                <label class="layui-form-label">姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" id="employee_name" lay-verify="required" placeholder="请输入姓名"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="gender" value="false" title="男">
+                    <input type="radio" name="gender" value="true" title="女">
+                    <!--<input type="radio" name="sex" value="禁" title="禁用" disabled="">-->
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">出生日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="birth" name="birth" placeholder="yyyy-MM-dd">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">电话</label>
+                <div class="layui-input-block">
+                    <input type="text" name="tel" id="employee_tel" lay-verify="required|telephone" placeholder="请输入电话"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="username" id="employee_username" lay-verify="required" placeholder="请输入用户名"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="password" id="employee_password" lay-verify="pass" placeholder="请输入密码"
+                           autocomplete="off" class="layui-input">
+                </div>
+                <!--<div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>-->
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-block">
+                    <input type="text" name="email" id="employee_email" lay-verify="required" placeholder="请输入邮箱"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">禁止访问</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="forbidden" value="false" title="否">
+                    <input type="radio" name="forbidden" value="true" title="是">
+                    <!--<input type="radio" name="sex" value="禁" title="禁用" disabled="">-->
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色</label>
+                <div class="layui-input-block">
+                    <select name="rid" id="employee_rid" lay-filter="aihao">
+                    </select>
+                </div>
+            </div>
 
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="formUpdateEmployee">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-        </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formUpdateEmployee">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
     </div>
-</form>
-</div>
 </div>
 
 <script src="/lib/layui/layui.js"></script>
@@ -88,122 +93,134 @@
     //一般直接写在一个js文件中
 
 
-
     window.bool_emp_edit = false;
     var rid;
 
-    window.render_data = function (data){
-        document.getElementById("employee_id").value = data.id;
-        document.getElementById("employee_name").value = data.name;
-        document.getElementById("birth").value = data.birth;
-        document.getElementById("employee_tel").value = data.tel;
-        document.getElementById("employee_username").value = data.username;
-        //document.getElementById("employee_password").value = data.password;
-        document.getElementById("employee_email").value = data.email;
-        if(data.gender == "男"){
-            data.gender = "false";
-        }else{
-            data.gender = "true";
-        }
-        if(data.forbidden == "否"){
-            data.forbidden = "false";
-        }else{
-            data.forbidden = "true";
-        }
-        var gendername = document.getElementsByName("gender");
-        gendername.forEach(function (value,index,array) {
-            //alert(data.gender);
-
-            if(value.value.toString()==data.gender.toString()){
-                value.setAttribute("checked"," ");
-            }
-
-        })
-        var forbiddenname = document.getElementsByName("forbidden");
-        forbiddenname.forEach(function (value,index,array) {
-            if(value.value.toString()==data.forbidden.toString()){
-                value.setAttribute("checked"," ");
-            }
-
-        })
-        rid = data.rid;
-
+    window.transfer_data = function (data) {
+        window.render_data = data;
+        window.render_page();
     };
 
-    layui.use(['layer', 'form', 'jquery','laydate'], function(){
+    layui.use(['layer', 'form', 'jquery', 'laydate'], function () {
         var layer = layui.layer
-            ,form = layui.form;
-        var $=layui.jquery;
+            , form = layui.form;
+        var $ = layui.jquery;
         var laydate = layui.laydate;
 
-        laydate.render({
-            elem:'#birth'
-        });
+        window.render_page = function () {
 
+            laydate.render({
+                elem: '#birth'
+            });
 
-        $.ajax({
-            url:"/admin/roless",
-            method:'GET',
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            success: function (rdata) {
-                if(rdata['code'] == 0){
-                    $.each(rdata["data"],function (index,value) {
-                        var html;
-                        if(rid == value["id"]){
-                            html = "<option value=" + value["id"] + " selected=>" + value["name"] + "</option>";
-                        }else{
-                            html = "<option value=" + value["id"] + ">" + value["name"] + "</option>";
-                        }
-                        //var html = "<option value=" + value["id"] + ">" + value["name"] + "</option>";
-                        var htm = document.getElementById("employee_rid").innerHTML;
-                        document.getElementById("employee_rid").innerHTML= htm + html;
-                        form.render("select")
-                    });
-
-                }else{
-                    layer.msg("用户角色读取失败！"+rdata['msg']);
+            function init_render_data() {
+                var data = window.render_data;
+                document.getElementById("employee_id").value = data.id;
+                document.getElementById("employee_name").value = data.name;
+                document.getElementById("birth").value = data.birth;
+                document.getElementById("employee_tel").value = data.tel;
+                document.getElementById("employee_username").value = data.username;
+                //document.getElementById("employee_password").value = data.password;
+                document.getElementById("employee_email").value = data.email;
+                if (data.gender === "男") {
+                    data.gender = false;
+                } else {
+                    data.gender = true;
                 }
-            },
-            error: function (msg) {
-                layer.msg("服务器无响应 msg:"+msg);
-            }
+                if (data.forbidden === "否") {
+                    data.forbidden = false;
+                } else {
+                    data.forbidden = true;
+                }
+                var gendername = document.getElementsByName("gender");
+                gendername.forEach(function (value, index, array) {
+                    //alert(data.gender);
 
-        });
-        form.render();
-        form.on('submit(formUpdateEmployee)', function(data){
-            console.log(data.elem);//被执行事件的元素DOM对象，一般为button对象
-            console.log(data.form);//被执行提交的form对象，一般在存在form标签时才会返回
-            console.log(data.field);//当前容器的全部表单字段，名值对形式：{name: value}
+                    if (value.value.toString() === data.gender.toString()) {
+                        console.log("test: " + value.value.toString());
+                        value.setAttribute("checked", "checked");
+                        console.log(value);
+                        //array[index].setAttribute("checked","checked");
+                    }
+
+                });
+                var forbiddenname = document.getElementsByName("forbidden");
+                forbiddenname.forEach(function (value, index, array) {
+                    if (value.value.toString() === data.forbidden.toString()) {
+                        value.setAttribute("checked", "checked");
+                    }
+
+                });
+                rid = data.rid;
+            };
+
+            init_render_data();
+
 
             $.ajax({
-                url: '/admin/employee/',
-                data: JSON.stringify(data.field),
-                method: 'PUT',
+                url: "/admin/roless",
+                method: 'GET',
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (rdata) {
-                    if(rdata['code'] === 0){
-                        layer.msg("用户信息修改成功！",{
-                            icon: 1,
-                            time: 1000 //2秒关闭（如果不配置，默认是3秒）
-                        }, function(){
-                            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                            parent.layer.close(index); //再执行关闭
+                    if (rdata['code'] == 0) {
+                        $.each(rdata["data"], function (index, value) {
+                            var html;
+                            if (rid == value["id"]) {
+                                html = "<option value=" + value["id"] + " selected=>" + value["name"] + "</option>";
+                            } else {
+                                html = "<option value=" + value["id"] + ">" + value["name"] + "</option>";
+                            }
+                            //var html = "<option value=" + value["id"] + ">" + value["name"] + "</option>";
+                            var htm = document.getElementById("employee_rid").innerHTML;
+                            document.getElementById("employee_rid").innerHTML = htm + html;
+                            form.render("select")
                         });
-                        window.bool_emp_edit = true;
-                    }else{
-                        layer.msg("用户信息修改失败！"+rdata['msg']);
+
+                    } else {
+                        layer.msg("用户角色读取失败！" + rdata['msg']);
                     }
                 },
                 error: function (msg) {
-                    layer.msg("服务器无响应 msg:"+msg.msg);
+                    layer.msg("服务器无响应 msg:" + msg);
                 }
 
             });
+            form.render();
+            form.on('submit(formUpdateEmployee)', function (data) {
+                console.log(data.elem);//被执行事件的元素DOM对象，一般为button对象
+                console.log(data.form);//被执行提交的form对象，一般在存在form标签时才会返回
+                console.log(data.field);//当前容器的全部表单字段，名值对形式：{name: value}
 
-            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-        });
+                $.ajax({
+                    url: '/admin/employee/',
+                    data: JSON.stringify(data.field),
+                    method: 'PUT',
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (rdata) {
+                        if (rdata['code'] === 0) {
+                            layer.msg("用户信息修改成功！", {
+                                icon: 1,
+                                time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                            }, function () {
+                                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                parent.layer.close(index); //再执行关闭
+                            });
+                            window.bool_emp_edit = true;
+                        } else {
+                            layer.msg("用户信息修改失败！" + rdata['msg']);
+                        }
+                    },
+                    error: function (msg) {
+                        layer.msg("服务器无响应 msg:" + msg.msg);
+                    }
+
+                });
+
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+        }
     });
 </script>
 

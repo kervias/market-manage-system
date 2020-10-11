@@ -53,7 +53,7 @@
 
         window.render_page = function(){
             window.init_render_data = function (){
-                data = window.render_data;
+                var data = window.render_data;
                 $('#category_id').val(data.id);
                 $('#category_name').val(data.name);
                 //document.getElementById("category_name").value = data.name;

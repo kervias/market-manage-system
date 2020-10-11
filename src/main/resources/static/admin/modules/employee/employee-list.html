@@ -157,7 +157,7 @@
                     iframe = window['layui-layer-iframe' + index];
                 }
                 , end: function () {
-                    if(iframe.bool_emp_add){
+                    if(iframe.bool_add){
                         table.reload('employeeTable', {
                             url: '/admin/employees'
                         });
@@ -277,7 +277,7 @@
                     //iframe.render_data(data)//向此iframe层方法 传递参数
                 }
                 ,end: function () {
-                    if(iframe.bool_emp_edit){
+                    if(iframe.bool_edit){
                         table.reload('employeeTable', {
                             url: '/admin/employees'
                         });

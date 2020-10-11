@@ -150,7 +150,7 @@
                     iframe = window['layui-layer-iframe' + index];
                 }
                 , end: function () {
-                    if(iframe.bool_warehouse_add){
+                    if(iframe.bool_add){
                         table.reload('warehouseTable', {
                             url: '/admin/warehouse_range'
                         });
@@ -266,13 +266,13 @@
                     layer.iframeAuto(index);
                     iframe = window['layui-layer-iframe' + index];//拿到iframe元素
                     //alert(iframe.bool_edit);
-                    iframe.transfer_warehouse_data(data);
+                    iframe.transfer_data(data);
 
 
                     //iframe.render_data(data)//向此iframe层方法 传递参数
                 }
                 ,end: function () {
-                    if(iframe.bool_warehouse_edit){
+                    if(iframe.bool_edit){
                         table.reload('warehouseTable', {
                             url: '/admin/warehouse_range'
                         });

@@ -248,8 +248,8 @@
                 success: function (layero, index) {
                     layer.iframeAuto(index);
                     iframe = window['layui-layer-iframe' + index];//拿到iframe元素
-                    //alert(iframe.bool_edit);
-                    iframe.render_data(data)//向此iframe层方法 传递参数
+                    //while(typeof (iframe.render_page) == "undefined") {};
+                    iframe.transfer_data(data)//向此iframe层方法 传递参数
                 }
                 ,end: function () {
                     if(iframe.bool_edit){

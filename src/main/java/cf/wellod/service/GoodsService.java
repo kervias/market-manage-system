@@ -20,6 +20,7 @@ public class GoodsService {
 
     @Transactional
     public HashMap<String,Object> addGoods(Goods goods){
+        System.out.println(goods);
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try {
             if(goods.getEN13() == null || goods.getExpDate() == null || goods.getUnit() == null

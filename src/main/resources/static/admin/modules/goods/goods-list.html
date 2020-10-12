@@ -44,7 +44,7 @@
                     </form>
                 </div>
                 <div class="layui-card-body layui-table-body layui-table-main">
-                    <table class="layui-hide" lay-filter="goodsInfoTable" id="goodsInfoTable"></table>
+                    <table class="layui-hide" lay-filter="goodsTable" id="goodsTable"></table>
                 </div>
             </div>
         </div>
@@ -53,8 +53,8 @@
 </body>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button type="button" class="layui-btn layui-btn-sm" id="addGoodsInfo" lay-event="add">增加</button>
-        <button type="button" class="layui-btn layui-btn-sm" id="deleteGoodsInfo" lay-event="delete">批量删除</button>
+        <button type="button" class="layui-btn layui-btn-sm" id="addGoods" lay-event="add">增加</button>
+        <button type="button" class="layui-btn layui-btn-sm" id="deleteGoods" lay-event="delete">批量删除</button>
     </div>
 </script>
 
@@ -74,12 +74,12 @@
         var table = layui.table;
 
         var baseConfig = {
-            'table-lay-filer': 'goodsInfoTable',
-            'table-render-url': '/admin/goodsInfos_range', // 表格渲染url
-            'table-delete-url':'',
-            'table-delete-batch-url':'',
-            'table-edit-html-url': '/admin/modules/goods/layer/addGoods.html',
-            'table-add-html-url': '/admin/modules/goods/layer/updateGoods.html'
+            'table-lay-filer': 'goodsTable',
+            'table-render-url': '/admin/goodses_range', // 表格渲染url
+            'table-delete-url':'/admin/goods/',
+            'table-delete-batch-url':'/admin/goodses',
+            'table-edit-html-url': '/admin/modules/goods/layer/updateGoods.html',
+            'table-add-html-url': '/admin/modules/goods/layer/addGoods.html'
         };
 
         table.render({
@@ -109,11 +109,15 @@
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {type: 'numbers', fixed: 'left', 'title': '序号'},
-                {field: 'EN13', title: 'EN13编号',sort: true},
-                {field: 'name', title: '商品名'},
-                {field: 'info', title: '商品信息描述'},
-                {field: 'suppName', title: '供应商'},
-                {field: 'categoryName', title: '类别'}
+                {field: 'id', title: '商品ID',sort: true},
+                {field: 'batch', title: '商品批次'},
+                {field: 'prodDate', title: '商品生产日期'},
+                {field: 'expDate', title: '保质期'},
+                {field: 'unit', title: '单位'},
+                {field: 'buyPrice', title: '售价'},
+                {field: 'price', title: '进价'},
+                {field: 'discount', title: '折扣'},
+                {field: 'en13', title: 'EN编号'}
                 ,{field: 'right', title:'操作', toolbar: '#barDemo'}
 
             ]]
@@ -164,7 +168,7 @@
             var idList = [];
             for(var i = 0; i < checkStatus.data.length; i++)
             {
-                idList.push(checkStatus.data[i].EN13);
+                idList.push(checkStatus.data[i].id);
             }
             console.log(idList); //获取选中行的数据
             if(idList.length === 0)
@@ -198,7 +202,7 @@
         table.on('tool('+baseConfig["table-lay-filer"]+')', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-            var itemId = data.EN13;
+            var itemId = data.id;
             console.log(itemId);
             if(layEvent === 'del'){ //删除
                 layer.confirm('真的删除行么', function(index){

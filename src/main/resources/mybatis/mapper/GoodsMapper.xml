@@ -9,7 +9,10 @@
     </insert>
 
     <update id="updateGoods">
-        update Goods set EN13=#{EN13},batch=#{batch},prodDate=#{prodDate},expDate=#{expDate},unit=#{unit}
+        <!--update Goods set EN13=#{EN13},batch=#{batch},prodDate=#{prodDate},expDate=#{expDate},unit=#{unit}
+         ,buyPrice=#{buyPrice},price=#{price},discount=#{discount} where id=#{id}-->
+
+         update Goods set EN13=#{EN13},expDate=#{expDate},unit=#{unit}
          ,buyPrice=#{buyPrice},price=#{price},discount=#{discount} where id=#{id}
     </update>
 

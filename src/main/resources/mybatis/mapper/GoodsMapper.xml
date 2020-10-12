@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cf.wellod.mapper.GoodsMapper">
+    <insert id="addGoods">
+        insert into Goods(id,EN13,batch,prodDate,expDate,unit,buyPrice,price,discount) values(#{id},#{EN13},#{batch},#{prodDate}
+        ,#{expDate},#{unit},#{buyPrice},#{price},#{discount})
+    </insert>
+
+    <update id="updateGoods">
+        update Goods set EN13=#{EN13},batch=#{batch},prodDate=#{prodDate},expDate=#{expDate},unit=#{unit}
+         ,buyPrice=#{buyPrice},price=#{price},discount=#{discount} where id=#{id}
+    </update>
+
+    <delete id="deleteGoodsById">
+        delete from Goods where id=#{id}
+    </delete>
+
+    <select id="getGoodsesCount" resultType="_integer">
+        select count(*) from Goods
+    </select>
+
+    <select id="getGoodsesByRange" resultType="cf.wellod.bean.Goods">
+        select top ${num} * from Goods where id not in (select top ${start-1} id from Goods)
+    </select>
+
+    <select id="getGoodsesAll" resultType="cf.wellod.bean.Goods">
+        select * from Goods
+    </select>
+
+    <delete id="deleteGoodsesBatch">
+        delete from Goods where id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="getGoodsById" resultType="cf.wellod.bean.Goods">
+        select * from Goods where id=#{id}
+    </select>
+
+</mapper>

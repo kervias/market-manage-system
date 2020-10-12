@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
+
 @Controller
 public class HelloController {
 
@@ -29,4 +31,8 @@ public class HelloController {
     public Object getGoodsId(@PathVariable("id")String id){
         return CommonUtil.generateGoodsIdByBatch(id);
     }
+
+    @ResponseBody
+    @GetMapping("/sss")
+    public Object getDateString(){return CommonUtil.generateGoodsBatchByProdDate(new Date());}
 }

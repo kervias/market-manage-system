@@ -1,5 +1,7 @@
 package cf.wellod.bean;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Date;
 
 public class Goods {
@@ -33,7 +35,7 @@ public class Goods {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = StringUtils.trimToNull(id);
     }
 
     public String getEN13() {
@@ -41,7 +43,8 @@ public class Goods {
     }
 
     public void setEN13(String EN13) {
-        this.EN13 = EN13;
+        System.out.println(EN13);
+        this.EN13 = StringUtils.trimToNull(EN13);
     }
 
     public String getBatch() {
@@ -49,7 +52,7 @@ public class Goods {
     }
 
     public void setBatch(String batch) {
-        this.batch = batch;
+        this.batch = StringUtils.trimToNull(batch);
     }
 
     public Date getProdDate() {
@@ -73,7 +76,7 @@ public class Goods {
     }
 
     public void setUnit(String unit) {
-        this.unit = unit;
+        this.unit = StringUtils.trimToNull(unit);
     }
 
     public Double getBuyPrice() {

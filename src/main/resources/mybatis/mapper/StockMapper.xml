@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cf.wellod.mapper.StockMapper">
+    <select id="isExistsRecord" resultType="_integer">
+        select count(*) from Stock where gid=#{gid} and wid=#{wid}
+    </select>
+
+    <update id="inBoundStock">
+        update Stock set quantity = quantity + #{quantity} where gid=#{gid} and wid=#{wid}
+    </update>
+
+    <update id="outBoundStock">
+        update Stock set quantity = quantity - #{quantity} where gid=#{gid} and wid=#{wid}
+    </update>
+
+    <select id="getStockByPrimaryKey" resultType="cf.wellod.bean.Stock">
+        select * from Stock where gid=#{gid} and wid=#{wid}
+    </select>
+
+    <select id="getStockAll" resultType="cf.wellod.bean.Stock">
+        select * from Stock
+    </select>
+
+    <delete id="deleteStockByPrimaryKey">
+        delete from Stock where gid=#{gid} and wid=#{wid}
+    </delete>
+
+    <insert id="addInBoundStock">
+        insert into Stock values(#{gid}, #{wid}, #{quantity}, #{threshold})
+    </insert>
+
+    <update id="updateThreshold">
+        update Stock set threshold=#{threshold} where gid=#{gid} and wid=#{wid}
+    </update>
+
+    <select id="getStockByRange" resultType="cf.wellod.bean.Stock">
+        select top ${num} * from Stock where gid+'-'+convert(varchar,wid) not in (select top ${start-1} gid+'-'+convert(varchar,wid) from Stock)
+    </select>
+
+    <select id="getStockCount" resultType="_integer">
+        select count(*) from Stock
+    </select>
+</mapper>

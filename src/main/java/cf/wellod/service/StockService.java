@@ -30,6 +30,8 @@ public class StockService {
     @Transactional
     public HashMap<String, Object> inBoundNewStock(InBound inBound){
         HashMap<String,Object> retJson = new HashMap<>();
+        System.out.println(inBound);
+        inBound.setEid(21);
         try{
             if(inBound.getEid() == null || inBound.getGid() == null || inBound.getQuantity() == null || inBound.getWid() == null || inBound.getThreshold() == null || inBound.getQuantity() < 0){
                 retJson.put("code", -1);
@@ -59,6 +61,7 @@ public class StockService {
     @Transactional
     public HashMap<String, Object> inBoundStock(InBound inBound){
         HashMap<String,Object> retJson = new HashMap<>();
+        inBound.setEid(21);
         try{
             if(inBound.getEid() == null || inBound.getGid() == null || inBound.getQuantity() == null || inBound.getWid() == null || inBound.getQuantity() < 0){
                 retJson.put("code", -1);
@@ -87,6 +90,7 @@ public class StockService {
     @Transactional
     public HashMap<String, Object> outBoundStock(OutBound outBound){
         HashMap<String,Object> retJson = new HashMap<>();
+        outBound.setEid(21);
         try{
             if(outBound.getEid() == null || outBound.getGid() == null || outBound.getQuantity() == null || outBound.getWid() == null || outBound.getReason() == null || outBound.getQuantity() <= 0){
                 retJson.put("code", -1);
@@ -120,6 +124,7 @@ public class StockService {
     // 删除记录请求
     public HashMap<String, Object> deleteStock(Stock stock){
         Stock stock_temp;
+        System.out.println(stock);
         HashMap<String,Object> retJson = new HashMap<>();
         try{
             if(stock.getGid() == null || stock.getWid() == null)
@@ -128,7 +133,8 @@ public class StockService {
                 retJson.put("msg", "invalid: null");
             }else{
                 stock_temp = stockMapper.getStockByPrimaryKey(stock.getGid(),stock.getWid());
-                if(stock_temp.getQuantity().equals(0)){
+                System.out.println(stock_temp);
+                if(stock_temp.getQuantity() != 0){
                     retJson.put("code", -1);
                     retJson.put("msg", "invalid: quantity not equal to 0");
                 }else{

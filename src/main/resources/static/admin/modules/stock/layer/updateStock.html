@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品编辑表单</title>
+    <link rel="stylesheet" href="/lib/layui/css/layui.css">
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row">
+        <form class="layui-form" style="margin-top: 20px">
+            <input type="hidden" name="gid" value="" id="stock_gid">
+            <input type="hidden" name="wid" value="" id="stock_wid">
+            <input type="hidden" name="quantity" value="" id="stock_quantity">
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品报警阈值</label>
+                <div class="layui-input-block">
+                    <input type="text" name="threshold" lay-verify="required" placeholder="请输入商品入库数量" autocomplete="off" class="layui-input" id="stock_threshold">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formUpdateStock">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/lib/layui/layui.js"></script>
+<script>
+    window.bool_edit = false;
+    window.bool_render = false;
+    window.transfer_data = function (data) {
+        window.render_data = data;
+        if(window.bool_render === false && typeof (window.render_page) != "undefined")
+        {
+            window.bool_render = true;
+            window.render_page();
+        }
+    };
+    layui.use(['layer', 'form', 'jquery'], function (){
+        var layer = layui.layer
+            , form = layui.form;
+        var $ = layui.jquery;
+        window.render_page = function (){
+
+            function init_render_data() {
+                var data = window.render_data;
+                document.getElementById("stock_gid").value = data.gid;
+                document.getElementById("stock_wid").value = data.wid;
+                document.getElementById("stock_quantity").value = data.quantity;
+                document.getElementById("stock_threshold").value = data.threshold;
+            };
+
+            init_render_data();
+
+            form.render();
+
+            form.on('submit(formUpdateStock)', function (data) {
+
+                $.ajax({
+                    url: '/admin/stock/threshold',
+                    data: JSON.stringify(data.field),
+                    method: 'PUT',
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (rdata) {
+                        if (rdata['code'] === 0) {
+                            layer.msg("商品报警阈值修改成功！", {
+                                icon: 1,
+                                time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                            }, function () {
+                                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                parent.layer.close(index); //再执行关闭
+                            });
+                            window.bool_edit = true;
+                        } else {
+                            layer.msg("商品报警阈值修改失败！" + rdata['msg']);
+                        }
+                    },
+                    error: function (msg) {
+                        layer.msg("服务器无响应 msg:" + msg.msg);
+                    }
+
+                });
+
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+        };
+        if(window.bool_render === false && typeof (window.render_data) != "undefined")
+        {
+            window.bool_render = true;
+            window.render_page();
+        }
+    });
+
+</script>
+
+</body>
+</html>

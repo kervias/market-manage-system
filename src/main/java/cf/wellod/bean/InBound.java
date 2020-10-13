@@ -11,7 +11,6 @@ public class InBound {
     Integer quantity; //操作数量
     Integer threshold; // 阈值
 
-
     @Override
     public String toString() {
         return "InBound{" +
@@ -21,6 +20,7 @@ public class InBound {
                 ", eid=" + eid +
                 ", op_time=" + op_time +
                 ", quantity=" + quantity +
+                ", threshold=" + threshold +
                 '}';
     }
 

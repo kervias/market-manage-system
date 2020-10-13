@@ -39,7 +39,7 @@ public class StockService {
             }else{
                 if(stockMapper.isExistsRecord(inBound.getGid(),inBound.getWid()) == 0){
                     stockMapper.addInBoundStock(inBound); // 插入Stock表
-                    inBound.setOp_time(DateUtil.getCurrDateTime());
+                    inBound.setOpTime(DateUtil.getCurrDateTime());
                     inBoundMapper.addInBoundRecord(inBound); // 插入InBound表
                     retJson.put("code", 0);
                     retJson.put("msg", "success");
@@ -72,7 +72,7 @@ public class StockService {
                     retJson.put("msg", "invalid");
                 }else{
                     stockMapper.inBoundStock(inBound); // 修改Stock表
-                    inBound.setOp_time(DateUtil.getCurrDateTime());
+                    inBound.setOpTime(DateUtil.getCurrDateTime());
                     inBoundMapper.addInBoundRecord(inBound); // 插入InBound表
                     retJson.put("code", 0);
                     retJson.put("msg", "success");

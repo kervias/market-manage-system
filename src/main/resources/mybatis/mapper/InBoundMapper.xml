@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cf.wellod.mapper.InBoundMapper">
     <insert id="addInBoundRecord">
-        insert into InBound values (#{gid}, #{wid}, #{eid}, #{op_time}, #{quantity})
+        insert into InBound values (#{gid}, #{wid}, #{eid}, #{opTime}, #{quantity})
     </insert>
 
     <select id="getInBoundsByRange" resultType="cf.wellod.bean.InBound">

@@ -65,8 +65,8 @@
 
 
         table.render({
-            elem: '#' + baseConfig["table-lay-filer"]
-            ,url: baseConfig["table-render-url"]
+            elem: '#stockOutTable'
+            ,url: '/admin/outbounds_range'
             ,page: true
             ,title: '库存表'
             ,limit: 5
@@ -81,7 +81,8 @@
                 {field: 'wid', title: '仓库ID'},
                 {field: 'eid', title: '员工ID'},
                 {field: 'opTime', title: '时间'},
-                {field: 'quantity', title: '库存量'}
+                {field: 'quantity', title: '库存量'},
+                {field: 'reason', title: '原因'}
             ]]
         });
 

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cf.wellod.mapper.OutBoundMapper">
     <insert id="addOutBoundRecord">
-        insert into OutBound values (#{gid}, #{wid}, #{eid}, #{op_time}, #{quantity}, #{reason})
+        insert into OutBound values (#{gid}, #{wid}, #{eid}, #{opTime}, #{quantity}, #{reason})
     </insert>
 
     <select id="getOutBoundsByRange" resultType="cf.wellod.bean.OutBound">

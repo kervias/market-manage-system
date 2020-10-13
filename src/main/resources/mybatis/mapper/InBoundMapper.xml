@@ -6,4 +6,12 @@
     <insert id="addInBoundRecord">
         insert into InBound values (#{gid}, #{wid}, #{eid}, #{op_time}, #{quantity})
     </insert>
+
+    <select id="getInBoundsByRange" resultType="cf.wellod.bean.InBound">
+        select top ${num} * from InBound where id not in (select top ${start-1} id from InBound)
+    </select>
+
+    <select id="getInBoundsCount" resultType="_integer">
+        select count(*) from InBound
+    </select>
 </mapper>

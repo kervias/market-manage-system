@@ -6,4 +6,12 @@
     <insert id="addOutBoundRecord">
         insert into OutBound values (#{gid}, #{wid}, #{eid}, #{op_time}, #{quantity}, #{reason})
     </insert>
+
+    <select id="getOutBoundsByRange" resultType="cf.wellod.bean.OutBound">
+        select top ${num} * from OutBound where id not in (select top ${start-1} id from OutBound)
+    </select>
+
+    <select id="getOutBoundsCount" resultType="_integer">
+        select count(*) from OutBound
+    </select>
 </mapper>

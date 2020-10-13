@@ -102,7 +102,7 @@ public class StockService {
                         retJson.put("msg", "invalid: over outbound");
                     }else{
                         stockMapper.outBoundStock(outBound); // 修改Stock表
-                        outBound.setOp_time(DateUtil.getCurrDateTime());
+                        outBound.setOpTime(DateUtil.getCurrDateTime());
                         outBoundMapper.addOutBoundRecord(outBound); // 插入outBound表
                         retJson.put("code", 0);
                         retJson.put("msg", "success");

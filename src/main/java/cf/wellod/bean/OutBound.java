@@ -7,7 +7,7 @@ public class OutBound {
     String gid; //商品ID
     Integer wid; //仓库ID
     Integer eid; // EmployeeID
-    Date op_time; // 操作日期
+    Date opTime; // 操作日期
     Integer quantity; //操作数量
     String reason; // 出库原因
 
@@ -18,7 +18,7 @@ public class OutBound {
                 ", gid='" + gid + '\'' +
                 ", wid=" + wid +
                 ", eid=" + eid +
-                ", op_time=" + op_time +
+                ", opTime=" + opTime +
                 ", quantity=" + quantity +
                 ", reason='" + reason + '\'' +
                 '}';
@@ -56,12 +56,12 @@ public class OutBound {
         this.eid = eid;
     }
 
-    public Date getOp_time() {
-        return op_time;
+    public Date getOpTime() {
+        return opTime;
     }
 
-    public void setOp_time(Date op_time) {
-        this.op_time = op_time;
+    public void setOpTime(Date opTime) {
+        this.opTime = opTime;
     }
 
     public Integer getQuantity() {

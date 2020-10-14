@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 
@@ -40,6 +41,24 @@ public class BaseInfoController {
         retJson.put("code",0);
         retJson.put("msg", "success");
         retJson.put("data", sysJson);
+        return retJson;
+    }
+
+
+    @GetMapping("/userinfo")
+    public Object getUserInfo(HttpServletRequest request){
+        HashMap<String, Object> retJson = new HashMap<String, Object>();
+        try{
+            String eid = request.getSession().getAttribute("eid").toString();
+            String name = request.getSession().getAttribute("username").toString();
+            retJson.put("eid", eid);
+            retJson.put("username", name);
+            retJson.put("code", 0);
+            retJson.put("msg", "success");
+        }catch (Exception e){
+            retJson.put("code", -1);
+            retJson.put("msg", "服务器异常");
+        }
         return retJson;
     }
 

@@ -37,4 +37,6 @@ public interface EmployeeMapper {
     //更新用户
     public void updateEmployee(Employee employee);
 
+    public Employee getEmployeeByEmail(String email);
+
 }

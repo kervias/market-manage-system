@@ -22,8 +22,8 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body ">
-                            <blockquote class="layui-elem-quote">欢迎管理员：
-                                <span class="x-red">test</span>！
+                            <blockquote class="layui-elem-quote">欢迎用户：
+                                <span class="x-red" id="username">test</span>！
                             </blockquote>
                         </div>
                     </div>
@@ -138,6 +138,23 @@
                     render_sysinfo_table(rdata['data']);
                 }else{
                     layer.msg("获取系统信息失败！");
+                }
+            },
+            error: function (msg) {
+                layer.msg("服务器无响应 msg:"+msg);
+            }
+
+        });
+
+        $.ajax({
+            url: '/common/userinfo',
+            method: 'GET',
+            contentType: "application/json;charset=utf-8",
+            success: function (rdata) {
+                if(rdata['code'] === 0){
+                    $("#username").text(rdata['username']);
+                }else{
+                    layer.msg("获取用户信息失败！");
                 }
             },
             error: function (msg) {

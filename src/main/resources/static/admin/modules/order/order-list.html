@@ -270,25 +270,28 @@
 
             console.log(data.field);
             console.log(orderData);
-            var submitdata = [];
             var price = 0;
             var detail = [];
             for(var i = 0; i < orderData.length; i++)
             {
                 price = price + orderData[i]['quantity'] * orderData[i]['buyPrice'] * orderData[i]['discount'];
-                detail.push("gid:"+ orderData[i]['id'] + "","" + "quantity:" + orderData[i]['quantity']);
+                var item = {"gid":orderData[i]['id'],"quantity":orderData[i]['quantity']};
+                detail.push(item);
             }
-            submitdata.push('amount:'+price);
-            submitdata.push('status:0');
-            submitdata.push('detail:' + JSON.stringify(detail));
-            console.log(JSON.stringify(submitdata));
+            var sdata = {
+                "amount":price,
+                "status": 0,
+                "detailList": detail
+            };
+
+            console.log(JSON.stringify(sdata));
             layer.confirm('应付款'+price+'元,' + '是否创建订单', function(index){
                 layer.close(index);
                 //deleteFunc2();
                 //向服务端发送删除指令
                 $.ajax({
-                    url: '/admin//orderlist',
-                    data: JSON.stringify(submitdata),
+                    url: '/admin/orderlist',
+                    data: JSON.stringify(sdata),
                     method: 'POST',
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",

@@ -63,4 +63,8 @@
             #{item}
         </foreach>
     </delete>
+
+    <select id="getEmployeeByEmail" resultType="cf.wellod.bean.Employee">
+        select * from Employee where email=#{email}
+    </select>
 </mapper>

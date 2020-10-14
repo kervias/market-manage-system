@@ -51,7 +51,7 @@
             </ul>
             <ul class="layui-nav right" lay-filter="">
                 <li class="layui-nav-item">
-                    <a href="javascript:;">admin</a>
+                    <a href="javascript:;" id="username">admin</a>
                     <dl class="layui-nav-child">
                         <!-- 二级菜单 -->
                         <dd>
@@ -59,7 +59,7 @@
                         <dd>
                             <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
                         <dd>
-                            <a href="./login.html">退出</a></dd>
+                            <a id="logout">退出</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item to-index">
@@ -174,9 +174,9 @@
                                     <cite>出库列表</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('商品库存不足列表','/admin/modules/stock/stockthreshold-list.html')">
+                                <a onclick="xadmin.add_tab('库存预警列表','/admin/modules/stock/stockthreshold-list.html')">
                                     <i class="iconfont">&#xe6a7;</i>
-                                    <cite>商品库存不足列表</cite></a>
+                                    <cite>库存预警列表</cite></a>
                             </li>
                         </ul>
                     </li>
@@ -401,3 +401,49 @@
     </body>
 
 </html>
+
+<script>
+    layui.use(['jquery'], function () {
+        $ = layui.jquery;
+
+        $.ajax({
+            url: '/common/userinfo',
+            method: 'get',
+            // contentType: "application/json;charset=utf-8",
+            // dataType: "json",
+            // data: JSON.stringify(data.field),
+            success: function (rdata) {
+                if(rdata['code'] === 0){
+                    $("#username").text(rdata['username']);
+                }else{
+                    layer.msg("获取信息失败！"+rdata['msg']);
+                }
+            },
+            error: function (msg) {
+                layer.msg("服务器无响应 msg:"+msg);
+            }
+        });
+
+
+        $("#logout").click(function () {
+            $.ajax({
+                url: '/admin/logout',
+                method: 'get',
+                // contentType: "application/json;charset=utf-8",
+                // dataType: "json",
+                // data: JSON.stringify(data.field),
+                success: function (rdata) {
+                    if(rdata['code'] === 0){
+                        var url = window.location.protocol + "//"+window.location.host+rdata['redirect'];
+                        location.href = url;
+                    }else{
+                        layer.msg("退出失败！"+rdata['msg']);
+                    }
+                },
+                error: function (msg) {
+                    layer.msg("服务器无响应 msg:"+msg);
+                }
+            });
+        });
+    })
+</script>

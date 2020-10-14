@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 @Controller
@@ -20,19 +21,22 @@ public class StockController {
 
     // 新入库请求
     @PostMapping("/stock")
-    public Object inBoundNewStock(@RequestBody InBound inBound){
+    public Object inBoundNewStock(@RequestBody InBound inBound, HttpServletRequest request){
+        inBound.setEid(Integer.valueOf(request.getSession().getAttribute("eid").toString()));
         return stockService.inBoundNewStock(inBound);
     }
 
     // 入库请求
     @PutMapping("/stock/in")
-    public Object inBoundStock(@RequestBody InBound inBound){
+    public Object inBoundStock(@RequestBody InBound inBound, HttpServletRequest request){
+        inBound.setEid(Integer.valueOf(request.getSession().getAttribute("eid").toString()));
         return stockService.inBoundStock(inBound);
     }
 
     // 出库请求
     @PutMapping("/stock/out")
-    public Object outBoundStock(@RequestBody OutBound outBound) {
+    public Object outBoundStock(@RequestBody OutBound outBound, HttpServletRequest request) {
+        outBound.setEid(Integer.valueOf(request.getSession().getAttribute("eid").toString()));
         return stockService.outBoundStock(outBound);
     }
 

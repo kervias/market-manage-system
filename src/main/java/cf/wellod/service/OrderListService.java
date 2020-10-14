@@ -59,7 +59,7 @@ public class OrderListService {
                             return retJson;
                         }
 
-                        amount += orderDetail.getDiscount() * orderDetail.getQuantity() * goods.getPrice();
+                        amount += orderDetail.getDiscount() * orderDetail.getQuantity() * goods.getBuyPrice();
                     }else{
                         retJson.put("code", -1);
                         retJson.put("msg", "invalid: unknown gid");

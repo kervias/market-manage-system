@@ -233,7 +233,7 @@ public class StockService {
                     tmpGoods = goodsMapper.getGoodsById(stock.getGid());
                     tmpDate = DateUtil.getDateAfterAddMonth(tmpGoods.getProdDate(), tmpGoods.getExpDate());
                     System.out.println(tmpDate);
-                    if(tmpDate.compareTo(currDate) < 0){
+                    if(tmpDate.compareTo(currDate) > 0){
                         dataStock.add(stock);
                     }
                 }

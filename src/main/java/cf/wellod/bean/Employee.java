@@ -23,15 +23,6 @@ public class Employee {
     private boolean forbidden;
     private Integer rid;
     private String salt;
-    //private String rolename;
-
-//    public String getRolename() {
-//        return rolename;
-//    }
-//
-//    public void setRolename(String rolename) {
-//        this.rolename = rolename;
-//    }
 
     public Integer getId() {
         return id;

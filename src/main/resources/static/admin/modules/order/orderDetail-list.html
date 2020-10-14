@@ -82,7 +82,7 @@
             'table-render-url': '/admin/orderlist', // 表格渲染url
             'table-cancel-url':'/admin/orderlist/',
             'table-ensure-url':'/admin/orderlist/',
-            'table-getmsg-url': '/admin/orderlist/'
+            'table-getmsg-url': '/admin/modules/order/layer/orderDetail.html'
         };
 
         table.render({
@@ -94,36 +94,34 @@
             ,limits: [5,10,20,30,40,50,100],
             cellMinWidth: 80,
             defaultToolbar: ['filter']
-            ,done:function (res) {
-                for(var item in res['data']){
-                    if(res['data'][item]['status'] != 0){
-                        $('#ensure').addClass("layui-btn-disabled").attr("disabled",true);
-                        $('#cancel').addClass("layui-btn-disabled").attr("disabled",true);
-                    }
-                }
-                //$('#cancel').addClass("layui-btn-disabled").attr("disabled",true);
-            }
-            /*,
+            // ,done:function (res) {
+            //     for(var item in res['data']){
+            //         if(res['data'][item]['status'] != 0){
+            //             $('#ensure').addClass("layui-btn-disabled").attr("disabled",true);
+            //             $('#cancel').addClass("layui-btn-disabled").attr("disabled",true);
+            //         }
+            //     }
+            //     //$('#cancel').addClass("layui-btn-disabled").attr("disabled",true);
+            // }
+            ,
             parseData: function (res) {
                 for(var item in res['data']){
-                    console.log(item)
-                    if(res['data'][item]['gender'] == true)
-                        res['data'][item]['gender'] = "女";
+                    //console.log(item)
+                    if(res['data'][item]['status'] == 0)
+                        res['data'][item]['status'] = "未支付";
+                    else if(res['data'][item]['status'] == 1)
+                        res['data'][item]['status'] = "已支付";
                     else
-                        res['data'][item]['gender'] = "男";
-                    if(res['data'][item]['forbidden'] == false)
-                        res['data'][item]['forbidden'] = "否";
-                    else
-                        res['data'][item]['forbidden'] = "是";
+                        res['data'][item]['status'] = "已取消";
+
                 }
-                console.log(res)
-            }*/
+            }
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {type: 'numbers', fixed: 'left', 'title': '序号'},
                 {field: 'id', title: '订单ID',sort: true},
                 {field: 'createTime', title: '订单创建日期'},
-                {field: 'payTime', title: '订单支付日期'},
+                {field: 'payTime', title: '订单操作日期'},
                 {field: 'amount', title: '总额'},
                 {field: 'status', title: '状态'}
                 ,{field: 'right', title:'操作', toolbar: '#barDemo'}
@@ -156,15 +154,24 @@
             var itemId = data.id;
             console.log(itemId);
             if(layEvent === 'cancel'){
-                layer.confirm('真的取消订单么', function(index){
-                    layer.close(index);
-                    cancelFunc(itemId);
-                });
+                if(data['status'] == '未支付'){
+                    layer.confirm('真的取消订单么', function(index){
+                        layer.close(index);
+                        cancelFunc(itemId);
+                    });
+                }else{
+                    layer.msg("订单已经完成，不可取消");
+                }
+
             } else if(layEvent === 'ensure'){ //编辑
-                layer.confirm('确认支付么', function(index){
-                    layer.close(index);
-                    ensureFunc(itemId);
-                });
+                if(data['status'] == '未支付'){
+                    layer.confirm('确认支付么', function(index){
+                        layer.close(index);
+                        ensureFunc(itemId);
+                    });
+                }else{
+                    layer.msg("订单已经完成，不可再次支付");
+                }
 
             } else if(layEvent === 'getmsg'){
                 getmsgFunc(data);
@@ -228,14 +235,14 @@
             layer.open({
                 type: 2,
                 title: '更改商品信息',
-                content: [baseConfig["table-edit-html-url"], 'no']
+                content: [baseConfig["table-getmsg-url"], 'no']
                 , maxmin: true
                 , area: '600px'
                 , offset: '100px',
                 success: function (layero, index) {
                     iframe = window['layui-layer-iframe' + index];//拿到iframe元素
                     //alert(iframe.bool_edit);
-                    iframe.transfer_data(data);
+                    //iframe.transfer_data(data);
                     layer.iframeAuto(index);
                     //iframe.render_data(data)//向此iframe层方法 传递参数
                 }

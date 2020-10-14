@@ -39,6 +39,7 @@ public class GoodsService {
                     goods.setId(CommonUtil.generateGoodsIdByBatch(goods.getBatch()));
                     goods_1 = goodsMapper.getGoodsById(goods.getId());
                 }while(goods_1 != null);
+                goods.setShelfQuantity(0);
                 goodsMapper.addGoods(goods);
                 retJson.put("code", 0);
                 retJson.put("msg", "success");

@@ -46,9 +46,21 @@
                 <div class="layui-card-body layui-table-body layui-table-main">
                     <table class="layui-hide" lay-filter="orderTable" id="orderTable"></table>
                 </div>
-                <div class="layui-card-body layui-table-body layui-table-main">
-                    <table class="layui-hide" lay-filter="orderSelectTable" id="orderSelectTable"></table>
-                </div>
+                <form class="layui-form" style="margin-top: 20px">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">订单各项</label>
+                    </div>
+                    <div class="layui-card-body layui-table-body layui-table-main">
+                        <table class="layui-hide" lay-filter="orderSelectTable" id="orderSelectTable"></table>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="formSubmitOrder">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
@@ -118,10 +130,10 @@
                 {field: 'id', title: '商品ID',sort: true},
                 {field: 'batch', title: '商品批次'},
                 {field: 'prodDate', title: '商品生产日期'},
-                {field: 'expDate', title: '保质期'},
+                {field: 'expDate', title: '保质期(月)'},
                 {field: 'unit', title: '单位'},
-                {field: 'buyPrice', title: '售价'},
-                {field: 'price', title: '进价'},
+                {field: 'buyPrice', title: '售价(元)'},
+                {field: 'price', title: '进价(元)'},
                 {field: 'discount', title: '折扣'},
                 {field: 'shelfQuantity', title: '货架数量'},
                 {field: 'en13', title: 'EN编号'}
@@ -137,7 +149,7 @@
             ,limits: [5,10,20,30,40,50,100],
             cellMinWidth: 80
             ,cols: [[
-                {type: 'checkbox', fixed: 'left'},
+                //{type: 'checkbox', fixed: 'left'},
                 {type: 'numbers', fixed: 'left', 'title': '序号'},
                 {field: 'id', title: '商品ID',sort: true},
                 {field: 'quantity', title: '数量',edit:'text'}
@@ -153,119 +165,157 @@
                 case 'addBatch':
                     addBatchFunc();
                     break;
-                case 'delete':
-                    layer.confirm('真的删除行么', function(index){
-                        layer.close(index);
-                        deleteFunc2();
-                        //向服务端发送删除指令
-                    });
-                    break;
             }
 
         });
 
 
-        var mmm=[];
-        var addFunc = function (data) {
-            data['quantity'] = '1';
-            mmm.push(data);
-            console.log(mmm);
-            table.reload('orderSelectTable',{
-                data:mmm
-            })
-
-        }
+        var orderData = [];
         var addBatchFunc = function () {
             var checkStatus = table.checkStatus(baseConfig["table-lay-filer"]);
             for(var i = 0; i < checkStatus.data.length; i++)
             {
-                idList.push(checkStatus.data[i].id);
-            }
-        };
-
-
-        var deleteFunc2 = function(){
-            var checkStatus = table.checkStatus(baseConfig["table-lay-filer"]); //idTest 即为基础参数 id 对应的值
-            var idList = [];
-            for(var i = 0; i < checkStatus.data.length; i++)
-            {
-                idList.push(checkStatus.data[i].id);
-            }
-            console.log(idList); //获取选中行的数据
-            if(idList.length === 0)
-            {
-                layer.msg("当前并未选中任何项");
-            }else{
-                $.ajax({
-                    url: baseConfig["table-delete-batch-url"],
-                    method: 'delete',
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    data: JSON.stringify(idList),
-                    success: function (rdata) {
-                        if(rdata['code'] === 0){
-                            layer.msg("商品批量删除成功！",{
-                                icon: 1,
-                                time: 1000 //1秒关闭（如果不配置，默认是3秒）
-                            });
-                            table.reload(baseConfig["table-lay-filer"]);
-                        }else{
-                            layer.msg("商品批量删除失败！"+rdata['msg']);
-                        }
-                    },
-                    error: function (msg) {
-                        layer.msg("服务器无响应 msg:"+msg);
+                var label = false;
+                for(var j = 0; j < orderData.length; j++)
+                {
+                    if(orderData[j]['id'] == checkStatus.data[i]['id']){
+                        layer.msg(checkStatus.data[i]['id'] + '该商品在订单中已存在', function(index){
+                            layer.close(index);
+                        });
+                        label = true;
+                        break;
                     }
-                })
+                }
+                //console.log(checkStatus.data[i]['id']);
+                if(label == false){
+                    checkStatus.data[i]['quantity'] = 1;
+                    orderData.push(checkStatus.data[i]);
+                }
+
             }
+            table.reload('orderSelectTable',{
+                data:orderData
+            })
         };
+
 
         table.on('tool('+baseConfig["table-lay-filer"]+')', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-            var itemId = data.id;
-            console.log(itemId);
             if(layEvent === 'add'){ //删除
                 addFunc(data);
             }
         });
 
+        table.on('tool(orderSelectTable)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'del'){ //删除
+                deleteFunc(data);
+            }
+        });
 
-        var deleteFunc = function (itemId) {
-            var url = baseConfig["table-delete-url"]+itemId;
-            $.ajax({
-                url: url,
-                method: 'delete',
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                success: function (rdata) {
-                    if(rdata['code'] === 0){
-                        layer.msg("商品删除成功！",{
-                            icon: 1,
-                            time: 1000 //1秒关闭（如果不配置，默认是3秒）
-                        });
-                        table.reload(baseConfig["table-lay-filer"]);
-                    }else{
-                        layer.msg("商品删除失败！"+rdata['msg']);
-                    }
-                },
-                error: function (msg) {
-                    layer.msg("服务器无响应 msg:"+msg);
+
+        var deleteFunc = function (data) {
+            for(var i = 0; i < orderData.length; i++)
+            {
+                if(orderData[i]['id'] == data['id']){
+                    orderData.splice(i,1);
+                    break;
                 }
+            }
+            table.reload('orderSelectTable',{
+                data:orderData
             })
         };
 
 
-        var mmm=[];
         var addFunc = function (data) {
-            data['quantity'] = '1';
-            mmm.push(data);
-            console.log(mmm);
-            table.reload('orderSelectTable',{
-                data:mmm
-            })
+            var label = false;
+            for(var i = 0; i < orderData.length; i++)
+            {
+                if(orderData[i]['id'] == data.id){
+                    layer.msg('该商品在订单中已存在', function(index){
+                        layer.close(index);
+                    });
+                    label = true;
+                    break;
+                }
+            }
+            if(label == false){
+                data['quantity'] = 1;
+                orderData.push(data);
+                table.reload('orderSelectTable',{
+                    data:orderData
+                })
+            }
+
 
         }
+
+        table.on('edit(orderSelectTable)', function(obj){
+            var value = obj.value //得到修改后的值
+                ,data = obj.data //得到所在行所有键值
+                ,field = obj.field; //得到字段
+            for(var i = 0; i < orderData.length; i++)
+            {
+                if(orderData[i]['id'] == data.id){
+                    orderData[i]['quantity'] = value;
+                    break;
+                }
+            }
+        });
+
+        form.on('submit(formSubmitOrder)', function (data) {
+
+            console.log(data.field);
+            console.log(orderData);
+            var submitdata = [];
+            var price = 0;
+            var detail = [];
+            for(var i = 0; i < orderData.length; i++)
+            {
+                price = price + orderData[i]['quantity'] * orderData[i]['buyPrice'] * orderData[i]['discount'];
+                detail.push("gid:"+ orderData[i]['id'] + "","" + "quantity:" + orderData[i]['quantity']);
+            }
+            submitdata.push('amount:'+price);
+            submitdata.push('status:0');
+            submitdata.push('detail:' + JSON.stringify(detail));
+            console.log(JSON.stringify(submitdata));
+            layer.confirm('应付款'+price+'元,' + '是否创建订单', function(index){
+                layer.close(index);
+                //deleteFunc2();
+                //向服务端发送删除指令
+                $.ajax({
+                    url: '/admin//orderlist',
+                    data: JSON.stringify(submitdata),
+                    method: 'POST',
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: function (rdata) {
+                        if (rdata['code'] === 0) {
+                            layer.msg("订单创建成功！", {
+                                icon: 1,
+                                time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                            }, function () {
+                                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                parent.layer.close(index); //再执行关闭
+                            });
+                            window.bool_edit = true;
+                        } else {
+                            layer.msg("订单创建失败！" + rdata['msg']);
+                        }
+                    },
+                    error: function (msg) {
+                        layer.msg("服务器无响应 msg:" + msg.msg);
+                    }
+
+                });
+            });
+
+
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
 
     });
 

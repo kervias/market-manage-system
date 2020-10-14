@@ -59,4 +59,9 @@ public class StockController {
     public Object getStockAll(){
         return stockService.getStockAll();
     }
+
+    @GetMapping("/stocks_exp")
+    public HashMap<String, Object> getStockThresholdRange(@RequestParam("page")Integer page,@RequestParam("limit")Integer limit) {
+        return stockService.getStockThresholdRange(page, limit);
+    }
 }

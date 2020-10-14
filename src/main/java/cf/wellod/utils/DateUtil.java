@@ -1,6 +1,7 @@
 package cf.wellod.utils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
@@ -14,5 +15,13 @@ public class DateUtil {
             System.out.println(e);
             return new Date();
         }
+    }
+
+    // 添加月份
+    public static Date getDateAfterAddMonth(Date date, Integer month){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, month);
+        return calendar.getTime();
     }
 }

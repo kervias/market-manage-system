@@ -1,8 +1,10 @@
 package cf.wellod.service;
 
+import cf.wellod.bean.Goods;
 import cf.wellod.bean.InBound;
 import cf.wellod.bean.OutBound;
 import cf.wellod.bean.Stock;
+import cf.wellod.mapper.GoodsMapper;
 import cf.wellod.mapper.InBoundMapper;
 import cf.wellod.mapper.OutBoundMapper;
 import cf.wellod.mapper.StockMapper;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,6 +28,9 @@ public class StockService {
 
     @Autowired
     StockMapper stockMapper;
+
+    @Autowired
+    GoodsMapper goodsMapper;
 
     // 新商品入库请求
     @Transactional
@@ -213,4 +219,52 @@ public class StockService {
         return retJson;
     }
 
+    // 报警阈值
+    public HashMap<String, Object> getStockThresholdRange(Integer page, Integer limit){
+        HashMap<String,Object> retJson = new HashMap<>();
+        Date tmpDate;
+        Goods tmpGoods;
+        Date currDate = new Date();
+        try{
+            List<Stock> allStock = stockMapper.getStockAll();
+            List<Stock> dataStock = new ArrayList<Stock>();
+            for(Stock stock : allStock){
+                if(stock.getThreshold() > stock.getQuantity()){
+                    tmpGoods = goodsMapper.getGoodsById(stock.getGid());
+                    tmpDate = DateUtil.getDateAfterAddMonth(tmpGoods.getProdDate(), tmpGoods.getExpDate());
+                    System.out.println(tmpDate);
+                    if(tmpDate.compareTo(currDate) < 0){
+                        dataStock.add(stock);
+                    }
+                }
+            }
+            Integer count = dataStock.size();
+            System.out.println(dataStock);
+            if(count >= 0 && limit > 0 && page > 0)
+            {
+                int pageNum = (int)Math.ceil(count.floatValue()/limit);
+                if(pageNum == 0) pageNum++;
+                if(page > pageNum) page = pageNum;
+                int start = (page-1)*limit;
+                retJson.put("code", 0);
+                retJson.put("msg", "success");
+                retJson.put("count", count);
+                if(limit > count) limit = count;
+                List<Stock> list = dataStock.subList(start, limit);
+                retJson.put("data", list);
+            }else{
+                retJson.put("code", -1);
+                retJson.put("msg", "failed");
+                retJson.put("count", 0);
+                retJson.put("data", new ArrayList<Stock>());
+            }
+        }catch (Exception e){
+            System.out.println(e);
+            retJson.put("code", -1);
+            retJson.put("msg", "failed");
+            retJson.put("count", 0);
+            retJson.put("data", new ArrayList<Stock>());
+        }
+        return retJson;
+    }
 }

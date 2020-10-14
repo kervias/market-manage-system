@@ -1,7 +1,9 @@
 package cf.wellod.bean;
 
 //import cf.wellod.mapper.RoleMapper;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.StringUtils;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,7 +14,7 @@ public class Employee {
     private Integer id;
     private String name;
     private boolean gender;
-    //@DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birth;
     private String tel;
     private String username;

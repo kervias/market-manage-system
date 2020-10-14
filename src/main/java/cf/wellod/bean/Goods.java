@@ -1,5 +1,6 @@
 package cf.wellod.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
@@ -8,6 +9,7 @@ public class Goods {
     private String id;
     private String EN13;
     private String batch; //生产批次
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date prodDate;
     private Integer expDate; // 注意！！！！ 此为保质期
     private String unit;

@@ -99,6 +99,7 @@
                         res['data'][item]['forbidden'] = "否";
                     else
                         res['data'][item]['forbidden'] = "是";
+                    res['data'][item]['birth'] = res['data'][item]['birth'].split("T")[0];
                 }
                 console.log(res)
             }

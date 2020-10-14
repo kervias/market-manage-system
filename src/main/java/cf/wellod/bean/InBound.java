@@ -1,5 +1,8 @@
 package cf.wellod.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class InBound {
@@ -7,6 +10,8 @@ public class InBound {
     String gid; //商品ID
     Integer wid; //仓库ID
     Integer eid; // EmployeeID
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     Date opTime; // 操作日期
     Integer quantity; //操作数量
     Integer threshold; // 阈值

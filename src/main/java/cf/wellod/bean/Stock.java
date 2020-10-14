@@ -1,10 +1,16 @@
 package cf.wellod.bean;
 
+import com.opencsv.bean.CsvBindByName;
+
 public class Stock {
-    String gid; //商品ID
-    Integer wid; //仓库ID
-    Integer quantity; // 数量
-    Integer threshold; // 临界值
+
+    @CsvBindByName(column = "gid",required = true)
+    private String gid; //商品ID
+    @CsvBindByName(column = "wid",required = true)
+    private Integer wid; //仓库ID
+    @CsvBindByName(column = "quantity",required = true)
+    private Integer quantity; // 数量
+    private Integer threshold; // 临界值
 
     @Override
     public String toString() {

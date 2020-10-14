@@ -18,12 +18,14 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">商品出库原因</label>
+                <label class="layui-form-label">出库原因</label>
                 <div class="layui-input-block">
-                    <input type="text" name="reason" lay-verify="required" placeholder="请输入商品出库原因" autocomplete="off" class="layui-input">
+                    <select name="reason" lay-filter="reason" id="reason">
+                        <option value="0">其他原因</option>
+                        <option value="1">上架</option>
+                    </select>
                 </div>
             </div>
-
 
             <div class="layui-form-item">
                 <div class="layui-input-block">

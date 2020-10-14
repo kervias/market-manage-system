@@ -56,6 +56,12 @@
                     <input type="text" name="discount" lay-verify="required" placeholder="请输入折扣" autocomplete="off" class="layui-input" id="goods_discount">
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">货架数量</label>
+                <div class="layui-input-block">
+                    <input type="text" name="shelfQuantity" lay-verify="required" placeholder="请输入货架数量" autocomplete="off" class="layui-input" id="goods_shelfQuantity">
+                </div>
+            </div>
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
@@ -94,6 +100,7 @@
                 document.getElementById("goods_buyPrice").value = data.buyPrice;
                 document.getElementById("goods_price").value = data.price;
                 document.getElementById("goods_discount").value = data.discount;
+                document.getElementById("goods_shelfQuantity").value = data.shelfQuantity;
                 en13 = data.en13;
             };
 

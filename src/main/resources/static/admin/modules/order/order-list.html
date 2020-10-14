@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>商品表</title>
+    <title>创建订单表</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -44,7 +44,10 @@
                     </form>
                 </div>
                 <div class="layui-card-body layui-table-body layui-table-main">
-                    <table class="layui-hide" lay-filter="goodsTable" id="goodsTable"></table>
+                    <table class="layui-hide" lay-filter="orderTable" id="orderTable"></table>
+                </div>
+                <div class="layui-card-body layui-table-body layui-table-main">
+                    <table class="layui-hide" lay-filter="orderSelectTable" id="orderSelectTable"></table>
                 </div>
             </div>
         </div>
@@ -53,14 +56,18 @@
 </body>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button type="button" class="layui-btn layui-btn-sm" id="addGoods" lay-event="add">增加</button>
-        <button type="button" class="layui-btn layui-btn-sm" id="deleteGoods" lay-event="delete">批量删除</button>
+        <button type="button" class="layui-btn layui-btn-sm" id="addOrders" lay-event="addBatch">批量增加</button>
+<!--        <button type="button" class="layui-btn layui-btn-sm" id="deleteGoods" lay-event="delete">批量删除</button>-->
     </div>
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" lay-event="add">添加</a>
+<!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+</script>
+<script type="text/html" id="barDemoTwo">
+<!--    <a class="layui-btn layui-btn-xs" lay-event="add">添加</a>-->
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">取消</a>
 </script>
 
 <script>
@@ -74,7 +81,7 @@
         var table = layui.table;
 
         var baseConfig = {
-            'table-lay-filer': 'goodsTable',
+            'table-lay-filer': 'orderTable',
             'table-render-url': '/admin/goodses_range', // 表格渲染url
             'table-delete-url':'/admin/goods/',
             'table-delete-batch-url':'/admin/goodses',
@@ -89,8 +96,7 @@
             ,title: '商品表'
             ,limit: 5
             ,limits: [5,10,20,30,40,50,100],
-            cellMinWidth: 80,
-            defaultToolbar: ['filter']
+            cellMinWidth: 80
             ,toolbar: '#toolbarDemo'/*,
             parseData: function (res) {
                 for(var item in res['data']){
@@ -124,12 +130,28 @@
             ]]
         });
 
+        table.render({
+            elem: '#orderSelectTable'
+            ,title: '商品表'
+            ,limit: 5
+            ,limits: [5,10,20,30,40,50,100],
+            cellMinWidth: 80
+            ,cols: [[
+                {type: 'checkbox', fixed: 'left'},
+                {type: 'numbers', fixed: 'left', 'title': '序号'},
+                {field: 'id', title: '商品ID',sort: true},
+                {field: 'quantity', title: '数量',edit:'text'}
+                ,{field: 'right', title:'操作', toolbar: '#barDemoTwo'}
+
+            ]]
+        });
+
         //监听事件
         table.on('toolbar('+baseConfig["table-lay-filer"]+')', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
-                case 'add':
-                    addFunc();
+                case 'addBatch':
+                    addBatchFunc();
                     break;
                 case 'delete':
                     layer.confirm('真的删除行么', function(index){
@@ -143,24 +165,22 @@
         });
 
 
-        var addFunc = function () {
-            layer.open({
-                type: 2
-                , title: '添加商品'
-                , content: [baseConfig["table-add-html-url"], 'no']
-                , maxmin: true
-                , area: '600px'
-                , offset: '100px'
-                , success: function (layero, index) {
-                    layer.iframeAuto(index);
-                    iframe = window['layui-layer-iframe' + index];
-                }
-                , end: function () {
-                    if(iframe.bool_add){
-                        table.reload(baseConfig["table-lay-filer"]);
-                    }
-                }
+        var mmm=[];
+        var addFunc = function (data) {
+            data['quantity'] = '1';
+            mmm.push(data);
+            console.log(mmm);
+            table.reload('orderSelectTable',{
+                data:mmm
             })
+
+        }
+        var addBatchFunc = function () {
+            var checkStatus = table.checkStatus(baseConfig["table-lay-filer"]);
+            for(var i = 0; i < checkStatus.data.length; i++)
+            {
+                idList.push(checkStatus.data[i].id);
+            }
         };
 
 
@@ -205,14 +225,8 @@
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var itemId = data.id;
             console.log(itemId);
-            if(layEvent === 'del'){ //删除
-                layer.confirm('真的删除行么', function(index){
-                    layer.close(index);
-                    deleteFunc(itemId);
-                });
-            } else if(layEvent === 'edit'){ //编辑
-                console.log(data);
-                editFunc(data);
+            if(layEvent === 'add'){ //删除
+                addFunc(data);
             }
         });
 
@@ -242,29 +256,15 @@
         };
 
 
-        var editFunc = function (data) {
-
-            var iframe;
-            layer.open({
-                type: 2,
-                title: '更改商品信息',
-                content: [baseConfig["table-edit-html-url"], 'no']
-                , maxmin: true
-                , area: '600px'
-                , offset: '100px',
-                success: function (layero, index) {
-                    iframe = window['layui-layer-iframe' + index];//拿到iframe元素
-                    //alert(iframe.bool_edit);
-                    iframe.transfer_data(data);
-                    layer.iframeAuto(index);
-                    //iframe.render_data(data)//向此iframe层方法 传递参数
-                }
-                ,end: function () {
-                    if(iframe.bool_edit){
-                        table.reload(baseConfig["table-lay-filer"]);
-                    }
-                }
+        var mmm=[];
+        var addFunc = function (data) {
+            data['quantity'] = '1';
+            mmm.push(data);
+            console.log(mmm);
+            table.reload('orderSelectTable',{
+                data:mmm
             })
+
         }
 
     });

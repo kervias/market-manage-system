@@ -14,12 +14,6 @@
 </head>
 <body>
 <div class="x-nav">
-          <span class="layui-breadcrumb">
-            <a href="">首页</a>
-            <a href="">演示</a>
-            <a>
-              <cite>导航</cite></a>
-          </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
         <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
 </div>
@@ -27,22 +21,6 @@
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
             <div class="layui-card">
-                <div class="layui-card-body ">
-                    <form class="layui-form layui-col-space5">
-                        <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-                        </div>
-                    </form>
-                </div>
                 <div class="layui-card-body layui-table-body layui-table-main">
                     <table class="layui-hide" lay-filter="orderDetailTable" id="orderDetailTable"></table>
                 </div>
@@ -51,20 +29,15 @@
     </div>
 </div>
 </body>
-<!--<script type="text/html" id="toolbarDemo">-->
-<!--    <div class="layui-btn-container">-->
-<!--        <button type="button" class="layui-btn layui-btn-sm" id="addGoods" lay-event="add">增加</button>-->
-<!--        <button type="button" class="layui-btn layui-btn-sm" id="deleteGoods" lay-event="delete">批量删除</button>-->
-<!--    </div>-->
-<!--</script>-->
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+    </div>
+</script>
 
 <script type="text/html" id="barDemo">
     <button type="button" class="layui-btn layui-btn-sm" id="getmsg" lay-event="getmsg">查看</button>
     <button type="button" class="layui-btn layui-btn-sm" id="ensure" lay-event="ensure">确认支付</button>
     <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="cancel" lay-event="cancel">取消</button>
-<!--    <a class="layui-btn layui-btn-xs" lay-event="getmsg">查看</a>-->
-<!--    <a class="layui-btn layui-btn-xs" lay-event="ensure">确认支付</a>-->
-<!--    <a class="layui-btn layui-btn-danger layui-btn-xs " lay-event="cancel" id="cancel">取消</a>-->
 </script>
 
 <script>
@@ -92,17 +65,8 @@
             ,title: '订单表'
             ,limit: 5
             ,limits: [5,10,20,30,40,50,100],
-            cellMinWidth: 80,
-            defaultToolbar: ['filter']
-            // ,done:function (res) {
-            //     for(var item in res['data']){
-            //         if(res['data'][item]['status'] != 0){
-            //             $('#ensure').addClass("layui-btn-disabled").attr("disabled",true);
-            //             $('#cancel').addClass("layui-btn-disabled").attr("disabled",true);
-            //         }
-            //     }
-            //     //$('#cancel').addClass("layui-btn-disabled").attr("disabled",true);
-            // }
+            cellMinWidth: 80
+            ,toolbar: '#toolbarDemo'
             ,
             parseData: function (res) {
                 for(var item in res['data']){
@@ -117,7 +81,6 @@
                 }
             }
             ,cols: [[
-                {type: 'checkbox', fixed: 'left'},
                 {type: 'numbers', fixed: 'left', 'title': '序号'},
                 {field: 'id', title: '订单ID',sort: true},
                 {field: 'createTime', title: '订单创建日期'},

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>编辑商品表单</title>
     <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <style>
+        .layui-form-select dl { max-height:200px; }
+    </style>
 </head>
 <body>
 <div class="layui-container">
@@ -14,7 +17,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">EN编号</label>
                     <div class="layui-input-inline">
-                        <select name="en13" lay-filter="en13" id="en13">
+                        <select name="en13" lay-filter="en13" id="en13" lay-verify="required" lay-search="">
                         </select>
                     </div>
                 </div>

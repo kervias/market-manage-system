@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>添加商品基本信息表单</title>
     <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <style>
+        .layui-form-select dl { max-height:200px; }
+    </style>
 </head>
 <body>
 
@@ -32,14 +35,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label">供应商</label>
         <div class="layui-input-block">
-            <select name="sid" lay-filter="supp" id="sid">
+            <select name="sid" lay-filter="supp" id="sid" lay-verify="required" lay-search="">
             </select>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">类别</label>
         <div class="layui-input-block">
-            <select name="cid" lay-filter="category" id="cid">
+            <select name="cid" lay-filter="category" id="cid" lay-verify="required" lay-search="">
             </select>
         </div>
     </div>

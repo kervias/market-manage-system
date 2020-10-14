@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>编辑用户表单</title>
     <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <style>
+        .layui-form-select dl { max-height:200px; }
+    </style>
 </head>
 <body>
 
@@ -72,7 +75,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">角色</label>
                 <div class="layui-input-block">
-                    <select name="rid" id="employee_rid" lay-filter="aihao">
+                    <select name="rid" id="employee_rid" lay-filter="aihao" lay-verify="required" lay-search="">
                     </select>
                 </div>
             </div>

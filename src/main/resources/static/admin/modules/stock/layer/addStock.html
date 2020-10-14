@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>新商品入库表单</title>
     <link rel="stylesheet" href="/lib/layui/css/layui.css">
+    <style>
+        .layui-form-select dl { max-height:200px; }
+    </style>
 </head>
 <body>
 <div class="layui-container">
@@ -13,14 +16,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">商品名</label>
                 <div class="layui-input-block">
-                    <select name="gid" lay-filter="gid" id="gid">
+                    <select name="gid" lay-filter="gid" id="gid" lay-verify="required" lay-search="">
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">仓库名</label>
                 <div class="layui-input-block">
-                    <select name="wid" lay-filter="wid" id="wid">
+                    <select name="wid" lay-filter="wid" id="wid" lay-verify="required" lay-search="">
                     </select>
                 </div>
             </div>

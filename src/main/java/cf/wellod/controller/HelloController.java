@@ -53,7 +53,7 @@ public class HelloController {
             // 将csv文件内容转成bean
             List<Stock> csvData = csvUtil.getCsvData(file, Stock.class);
             if (csvData == null || csvData.size() == 0) {
-                retJson.put("code", "-1");
+                retJson.put("code", -1);
                 retJson.put("msg","resolve csv file failed");
                 return retJson;
             }
@@ -64,11 +64,12 @@ public class HelloController {
                 if(tmpStock != null)
                     stock.setThreshold(stock.getQuantity() - tmpStock.getQuantity());
             }
-            retJson.put("code", "0");
+            retJson.put("code", 0);
             retJson.put("msg","success");
             retJson.put("data", csvData);
+            retJson.put("count", csvData.size());
         }catch (Exception e){
-            retJson.put("code", "-1");
+            retJson.put("code", -1);
             retJson.put("msg","failed");
         }
         return retJson;

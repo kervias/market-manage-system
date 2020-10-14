@@ -42,6 +42,14 @@ public class CommonUtil {
         String dateString = simpleDateFormat.format(prodDate);
         return dateString;
     }
+
+
+    // 生成订单号
+    public static String generateOrderId(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        String dateString = simpleDateFormat.format(new Date());
+        return dateString + UUID.randomUUID().toString().replace("-","").substring(0,16);
+    }
 }
 
 

@@ -31,4 +31,13 @@ public interface GoodsMapper {
 
     //查询所有记录
     public List<Goods> getGoodsesAll();
+
+    // 添加商品货架数量
+    public void addGoodsShelfCount(String id, Integer num);
+
+    // 销售时减少货架数量
+    public void minusGoodsShelfCount(String id, Integer num);
+
+    // 人为修改货架数量
+    public void updateGoodsShelfCount(String id, Integer num);
 }

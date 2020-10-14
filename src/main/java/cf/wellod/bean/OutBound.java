@@ -14,7 +14,7 @@ public class OutBound {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     Date opTime; // 操作日期
     Integer quantity; //操作数量
-    String reason; // 出库原因
+    int reason; // 出库原因
 
     @Override
     public String toString() {
@@ -25,7 +25,7 @@ public class OutBound {
                 ", eid=" + eid +
                 ", opTime=" + opTime +
                 ", quantity=" + quantity +
-                ", reason='" + reason + '\'' +
+                ", reason=" + reason +
                 '}';
     }
 
@@ -77,11 +77,11 @@ public class OutBound {
         this.quantity = quantity;
     }
 
-    public String getReason() {
+    public int getReason() {
         return reason;
     }
 
-    public void setReason(String reason) {
+    public void setReason(int reason) {
         this.reason = reason;
     }
 }

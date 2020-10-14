@@ -98,7 +98,8 @@ public class StockService {
         HashMap<String,Object> retJson = new HashMap<>();
         outBound.setEid(1);
         try{
-            if(outBound.getEid() == null || outBound.getGid() == null || outBound.getQuantity() == null || outBound.getWid() == null || outBound.getReason() == null || outBound.getQuantity() <= 0){
+            if(outBound.getEid() == null || outBound.getGid() == null || outBound.getQuantity() == null
+                    || outBound.getWid() == null || outBound.getQuantity() <= 0 || outBound.getReason() < 0 || outBound.getReason() > 1){
                 retJson.put("code", -1);
                 retJson.put("msg", "invalid");
             }else{
@@ -114,6 +115,8 @@ public class StockService {
                         stockMapper.outBoundStock(outBound); // 修改Stock表
                         outBound.setOpTime(DateUtil.getCurrDateTime());
                         outBoundMapper.addOutBoundRecord(outBound); // 插入outBound表
+                        if(outBound.getReason() == 1)
+                            goodsMapper.addGoodsShelfCount(outBound.getGid(),outBound.getQuantity()); //放入货架
                         retJson.put("code", 0);
                         retJson.put("msg", "success");
                     }

@@ -16,6 +16,7 @@ public class Goods {
     private Double buyPrice; //售价
     private Double price; //进价
     private Double discount; //折扣 （0,1]
+    private Integer shelfQuantity;
 
     @Override
     public String toString() {
@@ -29,6 +30,7 @@ public class Goods {
                 ", buyPrice=" + buyPrice +
                 ", price=" + price +
                 ", discount=" + discount +
+                ", shelfQuantity=" + shelfQuantity +
                 '}';
     }
 
@@ -37,7 +39,7 @@ public class Goods {
     }
 
     public void setId(String id) {
-        this.id = StringUtils.trimToNull(id);
+        this.id = id;
     }
 
     public String getEN13() {
@@ -45,8 +47,7 @@ public class Goods {
     }
 
     public void setEN13(String EN13) {
-        System.out.println(EN13);
-        this.EN13 = StringUtils.trimToNull(EN13);
+        this.EN13 = EN13;
     }
 
     public String getBatch() {
@@ -54,7 +55,7 @@ public class Goods {
     }
 
     public void setBatch(String batch) {
-        this.batch = StringUtils.trimToNull(batch);
+        this.batch = batch;
     }
 
     public Date getProdDate() {
@@ -78,7 +79,7 @@ public class Goods {
     }
 
     public void setUnit(String unit) {
-        this.unit = StringUtils.trimToNull(unit);
+        this.unit = unit;
     }
 
     public Double getBuyPrice() {
@@ -103,5 +104,13 @@ public class Goods {
 
     public void setDiscount(Double discount) {
         this.discount = discount;
+    }
+
+    public Integer getShelfQuantity() {
+        return shelfQuantity;
+    }
+
+    public void setShelfQuantity(Integer shelfQuantity) {
+        this.shelfQuantity = shelfQuantity;
     }
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cf.wellod.mapper.OrderDetailMapper">
+    <select id="getOrderDetailsByOid" resultType="cf.wellod.bean.OrderDetail">
+        select * from OrderDetail where oid=#{oid}
+    </select>
+    
+<!--    <insert id="addOrderDetailsOfOneOrder">-->
+<!--        insert into OrderDetail values-->
+<!--        <foreach item="item" index="index" collection="list" open="" separator="," close="">-->
+<!--            (#{item.})-->
+<!--        </foreach>-->
+<!--    </insert>-->
+    <insert id="addOrderDetail">
+        insert into OrderDetail values(#{gid},#{oid},#{quantity},#{discount})
+    </insert>
+</mapper>

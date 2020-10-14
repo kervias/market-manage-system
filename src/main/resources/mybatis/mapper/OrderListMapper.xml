@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cf.wellod.mapper.OrderListMapper">
+    <select id="getOrderListById" resultType="cf.wellod.bean.OrderList">
+        select * from OrderList where id=#{id}
+    </select>
+
+    <insert id="addOrderList">
+        insert into OrderList(id,createTime,amount,status) values(#{id},#{createTime},#{amount}, #{status})
+    </insert>
+
+    <select id="getOrderListsCount" resultType="_integer">
+        select count(*) from OrderList
+    </select>
+
+    <select id="getOrderListsByRange" resultType="cf.wellod.bean.OrderList">
+        select top ${num} * from OrderList where id not in (select top ${start-1} id from OrderList)
+    </select>
+
+    <update id="updateOrderListStatus">
+        update OrderList set payTime=#{payTime},status=#{status} where id=#{id}
+    </update>
+</mapper>

@@ -51,6 +51,10 @@
     </div>
 </div>
 </body>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+    </div>
+</script>
 
 <script>
 
@@ -71,7 +75,8 @@
             ,limit: 5
             ,limits: [5,10,20,30,40,50,100],
             cellMinWidth: 80,
-            defaultToolbar: ['filter']
+            //defaultToolbar: ['filter','export'],
+            toolbar: "#toolbarDemo"
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {type: 'numbers', fixed: 'left', 'title': '序号'},

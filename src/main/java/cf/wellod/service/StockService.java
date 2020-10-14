@@ -37,7 +37,7 @@ public class StockService {
     public HashMap<String, Object> inBoundNewStock(InBound inBound){
         HashMap<String,Object> retJson = new HashMap<>();
         System.out.println(inBound);
-        inBound.setEid(1);
+        //inBound.setEid(1);
         try{
             if(inBound.getEid() == null || inBound.getGid() == null || inBound.getQuantity() == null || inBound.getWid() == null || inBound.getThreshold() == null || inBound.getQuantity() < 0){
                 retJson.put("code", -1);
@@ -67,7 +67,7 @@ public class StockService {
     @Transactional
     public HashMap<String, Object> inBoundStock(InBound inBound){
         HashMap<String,Object> retJson = new HashMap<>();
-        inBound.setEid(1);
+        //inBound.setEid(1);
         try{
             if(inBound.getEid() == null || inBound.getGid() == null || inBound.getQuantity() == null || inBound.getWid() == null || inBound.getQuantity() < 0){
                 retJson.put("code", -1);
@@ -96,7 +96,7 @@ public class StockService {
     @Transactional
     public HashMap<String, Object> outBoundStock(OutBound outBound){
         HashMap<String,Object> retJson = new HashMap<>();
-        outBound.setEid(1);
+        //outBound.setEid(1);
         try{
             if(outBound.getEid() == null || outBound.getGid() == null || outBound.getQuantity() == null
                     || outBound.getWid() == null || outBound.getQuantity() <= 0 || outBound.getReason() < 0 || outBound.getReason() > 1){

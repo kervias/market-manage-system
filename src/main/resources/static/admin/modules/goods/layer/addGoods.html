@@ -32,7 +32,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">商品批次</label>
                 <div class="layui-input-block">
-                    <input type="text" name="batch" lay-verify="required" placeholder="请输入商品批次" autocomplete="off" class="layui-input">
+                    <input type="text" name="batch" lay-verify="required|number|len" placeholder="请输入商品批次" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -98,6 +98,11 @@
             discount:function (value) {
                 if(value < 0 || value > 1){
                     return "输入的折扣范围为0~1";
+                }
+            },
+            len:function (value) {
+                if(value.length != 8){
+                    return "商品批次为8位"
                 }
             }
         });

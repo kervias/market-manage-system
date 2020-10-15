@@ -1,21 +1,21 @@
-create database MARKET2 on
+create database MARKET on
 (
 	name=MARKET_DB2,
-	filename='d:\xmgl\MARKET_DB2.mdf',
+	filename='d:\MARKET_DB.mdf',
 	size=10,
 	maxsize=300,
 	filegrowth=5%
 )
 log on
 (
-	name=MARKET_LOG2,
-	filename='d:\xmgl\MARKET_LOG2.ldf',
+	name=MARKET_LOG,
+	filename='d:\MARKET_LOG.ldf',
 	size=10,
 	maxsize=300,
 	filegrowth=5%
 )COLLATE Chinese_PRC_CI_AS;
 go;
-use MARKET2;
+use MARKET;
 
 
 -- 供应商表
@@ -180,3 +180,10 @@ CREATE TABLE DaySale
     amount float not null,  -- 总金额
     cost float not null -- 成本
 )
+
+
+----- 新建管理员用户 -----
+insert into Role(name,info) values('超级管理员', '超级管理员')
+insert into Employee(name,gender,birth,tel,email,username,password,forbidden,rid,salt) values('admin', 0, '1999-04-01','1391010110','admin@admin.com','admin','95fa8762e10588f71cc47eeea5d95912',0,1,'fd1f37dc83b54fa79d78aab1f7bd78b5')
+
+-- 默认用户的用户名为admin 邮箱为：admin@admin.com 密码为：123

@@ -25,4 +25,7 @@ public interface YearSaleMapper {
 
     // 更新一条数据
     public void updateYearSale(YearSale yearSale);
+
+    // 获取所有数据
+    public List<YearSale> getYearSalesAll();
 }

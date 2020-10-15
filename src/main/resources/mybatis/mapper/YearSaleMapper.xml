@@ -26,4 +26,8 @@
     <update id="updateYearSale">
         update YearSale set amount=#{amount}, cost=#{cost} where id=#{id}
     </update>
+
+    <select id="getYearSalesAll" resultType="cf.wellod.bean.YearSale">
+        select * from YearSale
+    </select>
 </mapper>

@@ -180,12 +180,3 @@ CREATE TABLE DaySale
     amount float not null,  -- 总金额
     cost float not null -- 成本
 )
-
-
-
-
-
-
-
-
-

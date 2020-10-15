@@ -3,8 +3,8 @@ package cf.wellod.utils;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
+import org.apache.commons.io.input.BOMInputStream;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.InputStreamReader;
 import java.util.List;
 
@@ -19,8 +19,11 @@ public class CsvUtil {
     public <T> List<T> getCsvData(MultipartFile file, Class<T> clazz) {
         InputStreamReader in;
         CsvToBean<T> csvToBean;
+
+        BOMInputStream bomInputStream;
         try {
-            in = new InputStreamReader(file.getInputStream(), "gbk");
+            bomInputStream  = new BOMInputStream(file.getInputStream());
+            in = new InputStreamReader(bomInputStream, "gbk");
             //System.out.println("s1");
             HeaderColumnNameMappingStrategy<T> strategy = new HeaderColumnNameMappingStrategy<>();
             strategy.setType(clazz);

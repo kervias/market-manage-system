@@ -30,9 +30,9 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">保质期</label>
+                <label class="layui-form-label">保质期(月)</label>
                 <div class="layui-input-block">
-                    <input type="text" name="expDate" lay-verify="required" placeholder="请输入保质期" autocomplete="off" class="layui-input" id="goods_expDate">
+                    <input type="text" name="expDate" lay-verify="required|number" placeholder="请输入保质期" autocomplete="off" class="layui-input" id="goods_expDate">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -42,27 +42,27 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">售价</label>
+                <label class="layui-form-label">售价(元)</label>
                 <div class="layui-input-block">
-                    <input type="text" name="buyPrice" lay-verify="required" placeholder="请输入售价" autocomplete="off" class="layui-input" id="goods_buyPrice">
+                    <input type="text" name="buyPrice" lay-verify="required|number" placeholder="请输入售价" autocomplete="off" class="layui-input" id="goods_buyPrice">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">进价</label>
+                <label class="layui-form-label">进价(元)</label>
                 <div class="layui-input-block">
-                    <input type="text" name="price" lay-verify="required" placeholder="请输入进价" autocomplete="off" class="layui-input" id="goods_price">
+                    <input type="text" name="price" lay-verify="required|number" placeholder="请输入进价" autocomplete="off" class="layui-input" id="goods_price">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">折扣</label>
                 <div class="layui-input-block">
-                    <input type="text" name="discount" lay-verify="required" placeholder="请输入折扣" autocomplete="off" class="layui-input" id="goods_discount">
+                    <input type="text" name="discount" lay-verify="required|number|discount" placeholder="请输入折扣" autocomplete="off" class="layui-input" id="goods_discount">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">货架数量</label>
                 <div class="layui-input-block">
-                    <input type="text" name="shelfQuantity" lay-verify="required" placeholder="请输入货架数量" autocomplete="off" class="layui-input" id="goods_shelfQuantity">
+                    <input type="text" name="shelfQuantity" lay-verify="required|number|shelfQuantity" placeholder="请输入货架数量" autocomplete="off" class="layui-input" id="goods_shelfQuantity">
                 </div>
             </div>
 
@@ -92,6 +92,18 @@
         var layer = layui.layer
             , form = layui.form;
         var $ = layui.jquery;
+        form.verify({
+            discount:function (value) {
+                if(value < 0 || value > 1){
+                    return "输入的折扣范围为0~1";
+                }
+            },
+            shelfQuantity:function (value) {
+                if(value < 0){
+                    return "输入的货架数量不能为负"
+                }
+            }
+        });
         window.render_page = function (){
 
             var en13;

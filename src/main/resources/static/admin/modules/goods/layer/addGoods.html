@@ -17,7 +17,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">EN编号</label>
                     <div class="layui-input-inline">
-                        <select name="en13" lay-filter="en13" id="en13" lay-verify="required" lay-search="">
+                        <select name="en13" lay-filter="en13" id="en13" lay-search="">
                         </select>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                 <div class="layui-inline">
 <!--                    <label class="layui-form-label">商品名</label>-->
                     <div class="layui-input-inline">
-                        <input type="text" name="name" id="name" lay-verify="pass" placeholder="" autocomplete="off" class="layui-input" readonly>
+                        <input type="text" name="name" id="name" lay-verify="" placeholder="" autocomplete="off" class="layui-input" readonly>
                     </div>
                 </div>
             </div>
@@ -39,14 +39,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">商品生产日期</label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" id="prodDate" name="prodDate" placeholder="yyyy-MM-dd">
+                    <input type="text" class="layui-input" id="prodDate" lay-verify="required|date" name="prodDate" placeholder="yyyy-MM-dd">
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">保质期</label>
+                <label class="layui-form-label">保质期(月)</label>
                 <div class="layui-input-block">
-                    <input type="text" name="expDate" lay-verify="required" placeholder="请输入保质期" autocomplete="off" class="layui-input">
+                    <input type="text" name="expDate" lay-verify="required|number" placeholder="请输入保质期" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -56,21 +56,21 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">售价</label>
+                <label class="layui-form-label">售价(元)</label>
                 <div class="layui-input-block">
-                    <input type="text" name="buyPrice" lay-verify="required" placeholder="请输入售价" autocomplete="off" class="layui-input">
+                    <input type="text" name="buyPrice" lay-verify="required|number" placeholder="请输入售价" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">进价</label>
+                <label class="layui-form-label">进价(元)</label>
                 <div class="layui-input-block">
-                    <input type="text" name="price" lay-verify="required" placeholder="请输入进价" autocomplete="off" class="layui-input">
+                    <input type="text" name="price" lay-verify="required|number" placeholder="请输入进价" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">折扣</label>
                 <div class="layui-input-block">
-                    <input type="text" name="discount" lay-verify="required" placeholder="请输入折扣" autocomplete="off" class="layui-input">
+                    <input type="text" name="discount" lay-verify="required|number|discount" placeholder="请输入折扣" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -92,6 +92,14 @@
         var laydate = layui.laydate;
         laydate.render({
             elem:'#prodDate'
+        });
+
+        form.verify({
+            discount:function (value) {
+                if(value < 0 || value > 1){
+                    return "输入的折扣范围为0~1";
+                }
+            }
         });
         $.ajax({
             url:"/admin/goodsInfos_all",

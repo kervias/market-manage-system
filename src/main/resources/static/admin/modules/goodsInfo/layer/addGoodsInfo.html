@@ -17,7 +17,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">EN13编号</label>
         <div class="layui-input-block">
-            <input type="text" name="en13" lay-verify="required" placeholder="请输入EN13编号" autocomplete="off" class="layui-input">
+            <input type="text" name="en13" lay-verify="required|number|en13" placeholder="请输入EN13编号" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -68,6 +68,13 @@
             ,form = layui.form;
         var $=layui.jquery;
 
+        form.verify({
+            en13:function (value) {
+                if(value.length != 13){
+                    return "输入的EN13编号只能为13位";
+                }
+            }
+        });
         $.ajax({
             url:"/admin/supps_all",
             method:'GET',

@@ -57,12 +57,6 @@
 
     };
 
-    // window.render_data = function (data){
-    //     document.getElementById("supp_id").value = data.id;
-    //     document.getElementById("supp_name").value = data.name;
-    //     document.getElementById("supp_address").value = data.address;
-    //     document.getElementById("supp_tel").value = data.tel;
-    // };
 
     layui.use(['layer', 'form', 'jquery'], function(){
         var layer = layui.layer
@@ -70,14 +64,14 @@
         var $ = layui.jquery;
         var mobile = /^1[3|4|5|7|8]\d{9}$/;
         var phone = /^0\d{2,3}-?\d{7,8}$/;
-        //alert("hells");
-        // window.render_data = function (data){
-        //     //layer.msg(data);
-        //     $("#supp_id").val(data.id);
-        //     $("#supp_name").val(data.name);
-        //     $("#supp_address").val(data.address);
-        //     $("#supp_tel").val(data.tel);
-        // };
+        form.verify({
+            telephone: function(value){
+                var flag = mobile.test(value) || phone.test(value);
+                if(!flag){
+                    return '请输入正确座机号码或手机号';
+                }
+            }
+        });
 
         window.render_page = function(){
             window.init_render_data = function (){

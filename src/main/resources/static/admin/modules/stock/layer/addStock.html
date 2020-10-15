@@ -31,13 +31,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">新增库存量</label>
                 <div class="layui-input-block">
-                    <input type="text" name="quantity" lay-verify="required" placeholder="请输入新增库存量" autocomplete="off" class="layui-input">
+                    <input type="text" name="quantity" lay-verify="required|number|numberequalzero" placeholder="请输入新增库存量" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">报警阈值</label>
                 <div class="layui-input-block">
-                    <input type="text" name="threshold" lay-verify="required" placeholder="请输入报警阈值" autocomplete="off" class="layui-input">
+                    <input type="text" name="threshold" lay-verify="required|number|numberequalzero" placeholder="请输入报警阈值" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -57,6 +57,13 @@
         var layer = layui.layer
             ,form = layui.form;
         var $=layui.jquery;
+        form.verify({
+            numberequalzero:function (value) {
+                if(value < 0){
+                    return "输入的数字不能小于0";
+                }
+            }
+        });
         $.ajax({
             url:"/admin/goodses_all",
             method:'GET',

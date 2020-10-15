@@ -1,11 +1,13 @@
 package cf.wellod.bean;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class GoodsInfo {
-    Integer sid;
-    Integer cid;
-    String EN13;
-    String name;
-    String info;
+    private Integer sid;
+    private Integer cid;
+    private String EN13;
+    private String name;
+    private String info;
 
     public  Integer getSid() {
         return sid;
@@ -28,7 +30,7 @@ public class GoodsInfo {
     }
 
     public void setEN13(String EN13) {
-        this.EN13 = EN13;
+        this.EN13 = StringUtils.trimToNull(EN13);
     }
 
     public String getName() {

@@ -2,10 +2,10 @@ package cf.wellod.bean;
 
 
 public class Supplier {
-    Integer id;
-    String name;
-    String address;
-    String tel;
+    private Integer id;
+    private String name;
+    private String address;
+    private String tel;
 
     public Integer getId() {
         return id;

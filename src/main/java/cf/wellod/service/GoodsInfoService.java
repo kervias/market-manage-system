@@ -34,9 +34,9 @@ public class GoodsInfoService {
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
             if(goodsInfo.getName() == null || goodsInfo.getCid() == null || goodsInfo.getSid() == null
-                || goodsInfo.getEN13() == null || goodsInfo.getInfo() == null
+                || goodsInfo.getEN13() == null || goodsInfo.getInfo() == null || goodsInfo.getEN13().length() != 13
             ){
-                System.out.println(goodsInfo);
+                //System.out.println(goodsInfo);
                 retJson.put("code", -1);
                 retJson.put("msg", "invalid");
             }else{

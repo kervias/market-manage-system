@@ -6,14 +6,14 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderList {
-    String id;
+    private String id;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    Date createTime;
+    private Date createTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    Date payTime;
-    Double amount;
-    Integer status; // 订单状态，0: 未支付 1: 已支付 2：已取消
-    List<OrderDetail> detailList;
+    private Date payTime;
+    private Double amount;
+    private Integer status; // 订单状态，0: 未支付 1: 已支付 2：已取消
+    private List<OrderDetail> detailList;
 
     @Override
     public String toString() {

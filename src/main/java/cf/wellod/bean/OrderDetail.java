@@ -1,10 +1,10 @@
 package cf.wellod.bean;
 
 public class OrderDetail {
-    String gid;
-    String oid;
-    Integer quantity;
-    Double discount;
+    private String gid;
+    private String oid;
+    private Integer quantity;
+    private Double discount;
 
     @Override
     public String toString() {

@@ -3,8 +3,8 @@ package cf.wellod.bean;
 import org.apache.commons.lang3.StringUtils;
 
 public class Category {
-    Integer id;
-    String name;
+    private Integer id;
+    private String name;
 
     public  Integer getId() {
         return id;

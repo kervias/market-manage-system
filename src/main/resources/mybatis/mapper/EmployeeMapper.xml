@@ -31,7 +31,7 @@
 --         select top ${num} e.id eid,e.name ename,e.gender egender,e.birth ebirth,e.tel etel,
 --           e.username eusername,e.email eemail,e.password epassword,e.forbidden eforbidden,e.rid erid,e.salt esalt,r.name rname
 --         from Employee e left join Role r on e.rid = r.id where e.id not in (select top ${start-1} id from Employee)
-        select top ${num} * from Employee where id not in (select top ${start-1} id from Employee)
+        select top ${num} id,name,gender,birth,tel,username,email,password,rid,forbidden from Employee where id not in (select top ${start-1} id from Employee)
     </select>
 
 <!--    <resultMap id="myemployee" type="cf.wellod.bean.Employee">-->

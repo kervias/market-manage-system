@@ -22,4 +22,7 @@ public interface DaySaleMapper {
     // 判断是否存在
     public Integer isHaveDaySaleById(String id);
 
+    // 更新一条数据
+    public void updateDaySale(DaySale daySale);
+
 }

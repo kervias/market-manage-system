@@ -23,4 +23,6 @@ public interface YearSaleMapper {
     // 判断是否存在
     public Integer isHaveYearSaleById(String id);
 
+    // 更新一条数据
+    public void updateYearSale(YearSale yearSale);
 }

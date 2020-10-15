@@ -1,11 +1,9 @@
 package cf.wellod.service;
 
-import cf.wellod.bean.Goods;
-import cf.wellod.bean.GoodsInfo;
-import cf.wellod.bean.OrderDetail;
-import cf.wellod.bean.OrderList;
+import cf.wellod.bean.*;
 import cf.wellod.mapper.*;
 import cf.wellod.utils.CommonUtil;
+import cf.wellod.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -32,9 +30,17 @@ public class OrderListService {
     @Autowired
     StockMapper stockMapper;
 
-
     @Autowired
     GoodsInfoMapper goodsInfoMapper;
+
+    @Autowired
+    YearSaleMapper yearSaleMapper;
+
+    @Autowired
+    MonthSaleMapper monthSaleMapper;
+
+    @Autowired
+    DaySaleMapper daySaleMapper;
 
     // 创建订单
     @Transactional
@@ -190,9 +196,56 @@ public class OrderListService {
                         retJson.put("msg", "invalid");
                         return retJson;
                     }
+                    Double cost = new Double(0.0); // 成本
                     for(OrderDetail orderDetail:list){
-                        goodsMapper.minusGoodsShelfCount(orderDetail.getGid(), orderDetail.getQuantity());
+                        goodsMapper.minusGoodsShelfCount(orderDetail.getGid(), orderDetail.getQuantity()); // 减去商品
+                        cost += orderDetail.getQuantity() * goodsMapper.getGoodsById(orderDetail.getGid()).getPrice();
                     }
+
+                    // 写入 Sale
+                    String day = DateUtil.getCurrDateDay();
+                    String year = day.substring(0,4);
+                    String month = day.substring(0,6);
+                    YearSale yearSale = yearSaleMapper.getYearSaleById(year);
+                    MonthSale monthSale = monthSaleMapper.getMonthSaleById(month);
+                    DaySale daySale = daySaleMapper.getDaySaleById(day);
+
+                    if(daySale == null){
+                        daySale = new DaySale();
+                        daySale.setId(day);
+                        daySale.setCost(cost);
+                        daySale.setAmount(orderList.getAmount());
+                        daySaleMapper.addDaySale(daySale);
+                    }else {
+                        daySale.setCost(cost+daySale.getCost());
+                        daySale.setAmount(orderList.getAmount() + daySale.getCost());
+                        daySaleMapper.updateDaySale(daySale);
+                    }
+
+                    if(monthSale == null){
+                        monthSale = new MonthSale();
+                        monthSale.setId(month);
+                        monthSale.setAmount(orderList.getAmount());
+                        monthSale.setCost(cost);
+                        monthSaleMapper.addMonthSale(monthSale);
+                    }else {
+                        monthSale.setCost(cost + monthSale.getCost());
+                        monthSale.setAmount(orderList.getAmount() + monthSale.getAmount());
+                        monthSaleMapper.updateMonthSale(monthSale);
+                    }
+
+                    if(yearSale == null){
+                        yearSale = new YearSale();
+                        yearSale.setId(year);
+                        yearSale.setAmount(orderList.getAmount());
+                        yearSale.setCost(cost);
+                        yearSaleMapper.addYearSale(yearSale);
+                    }else {
+                        yearSale.setCost(cost + yearSale.getCost());
+                        yearSale.setAmount(orderList.getAmount() + yearSale.getAmount());
+                        yearSaleMapper.updateYearSale(yearSale);
+                    }
+
                 }
                 retJson.put("code", 0);
                 retJson.put("msg", "success");

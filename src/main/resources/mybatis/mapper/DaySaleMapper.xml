@@ -22,4 +22,8 @@
     <select id="isHaveDaySaleById" resultType="_integer">
         select count(*) from DaySale where id=#{id}
     </select>
+
+    <update id="updateDaySale">
+        update DaySale set amount=#{amount}, cost=#{cost} where id=#{id}
+    </update>
 </mapper>

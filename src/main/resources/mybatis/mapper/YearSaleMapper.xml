@@ -22,4 +22,8 @@
     <select id="isHaveYearSaleById" resultType="_integer">
         select count(*) from YearSale where id=#{id}
     </select>
+
+    <update id="updateYearSale">
+        update YearSale set amount=#{amount}, cost=#{cost} where id=#{id}
+    </update>
 </mapper>

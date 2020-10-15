@@ -21,4 +21,7 @@ public interface MonthSaleMapper {
 
     // 判断是否存在
     public Integer isHaveMonthSaleById(String id);
+
+    // 更新一条数据
+    public void updateMonthSale(MonthSale monthSale);
 }

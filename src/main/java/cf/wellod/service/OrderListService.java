@@ -217,8 +217,11 @@ public class OrderListService {
                         daySale.setAmount(orderList.getAmount());
                         daySaleMapper.addDaySale(daySale);
                     }else {
+                        System.out.println(daySale.getCost());
+                        System.out.println(cost);
                         daySale.setCost(cost+daySale.getCost());
-                        daySale.setAmount(orderList.getAmount() + daySale.getCost());
+                        System.out.println(daySale.getCost());
+                        daySale.setAmount(orderList.getAmount() + daySale.getAmount());
                         daySaleMapper.updateDaySale(daySale);
                     }
 

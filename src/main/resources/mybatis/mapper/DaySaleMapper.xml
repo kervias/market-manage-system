@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cf.wellod.mapper.DaySaleMapper">
+    <insert id="addDaySale">
+        insert into DaySale(id, amount, cost) values (#{id}, #{amount}, #{cost})
+    </insert>
+
+    <select id="getDaySalesByRange" resultType="cf.wellod.bean.DaySale">
+        select top ${num} * from DaySale where id not in (select top ${start-1} id from DaySale)
+    </select>
+
+    <select id="getDaySalesCount" resultType="_integer">
+        select count(*) from DaySale
+    </select>
+
+    <select id="getDaySaleById" resultType="cf.wellod.bean.DaySale">
+        select * from DaySale where id=#{id}
+    </select>
+
+    <select id="isHaveDaySaleById" resultType="_integer">
+        select count(*) from DaySale where id=#{id}
+    </select>
+</mapper>

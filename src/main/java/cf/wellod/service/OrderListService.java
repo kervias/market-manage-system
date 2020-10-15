@@ -173,17 +173,21 @@ public class OrderListService {
                 retJson.put("code", -1);
                 retJson.put("msg", "invalid");
             }else{
+                OrderList orderList = orderListMapper.getOrderListById(id);
+                if(orderList == null || orderList.getStatus() != 0){
+                    retJson.put("code", -1);
+                    retJson.put("msg", "invalid");
+                    return retJson;
+                }
                 orderListMapper.updateOrderListStatus(id,status,new Date());
-
                 if(status == 1){
                     // 已支付
                     // 从货架减少商品数量并记账
-                    OrderList orderList = orderListMapper.getOrderListById(id);
                     List<OrderDetail> list = orderDetailMapper.getOrderDetailsByOid(id);
-                    if(orderList == null || list == null)
+                    if(list == null)
                     {
-                        retJson.put("code", 0);
-                        retJson.put("msg", "success");
+                        retJson.put("code", -1);
+                        retJson.put("msg", "invalid");
                         return retJson;
                     }
                     for(OrderDetail orderDetail:list){
@@ -196,6 +200,7 @@ public class OrderListService {
         }catch (Exception e){
             retJson.put("code", -1);
             retJson.put("msg", "failed");
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
         return retJson;
     }

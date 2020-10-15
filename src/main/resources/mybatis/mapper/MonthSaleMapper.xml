@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cf.wellod.mapper.MonthSaleMapper">
+    <insert id="addMonthSale">
+        insert into MonthSale(id, amount, cost) values (#{id}, #{amount}, #{cost})
+    </insert>
+
+    <select id="getMonthSalesByRange" resultType="cf.wellod.bean.MonthSale">
+        select top ${num} * from MonthSale where id not in (select top ${start-1} id from MonthSale)
+    </select>
+
+    <select id="getMonthSalesCount" resultType="_integer">
+        select count(*) from MonthSale
+    </select>
+
+    <select id="getMonthSaleById" resultType="cf.wellod.bean.MonthSale">
+        select * from MonthSale where id=#{id}
+    </select>
+
+    <select id="isHaveMonthSaleById" resultType="_integer">
+        select count(*) from MonthSale where id=#{id}
+    </select>
+</mapper>

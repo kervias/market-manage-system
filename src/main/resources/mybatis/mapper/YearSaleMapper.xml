@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cf.wellod.mapper.YearSaleMapper">
+    <insert id="addYearSale">
+        insert into YearSale(id, amount, cost) values (#{id}, #{amount}, #{cost})
+    </insert>
+
+    <select id="getYearSalesByRange" resultType="cf.wellod.bean.YearSale">
+        select top ${num} * from YearSale where id not in (select top ${start-1} id from YearSale)
+    </select>
+
+    <select id="getYearSalesCount" resultType="_integer">
+        select count(*) from YearSale
+    </select>
+
+    <select id="getYearSaleById" resultType="cf.wellod.bean.YearSale">
+        select * from YearSale where id=#{id}
+    </select>
+
+    <select id="isHaveYearSaleById" resultType="_integer">
+        select count(*) from YearSale where id=#{id}
+    </select>
+</mapper>

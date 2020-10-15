@@ -24,4 +24,26 @@ public class DateUtil {
         calendar.add(Calendar.MONTH, month);
         return calendar.getTime();
     }
+
+
+    // 获取今天所在年份(2020)
+    public static String getCurrDateYear(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        String s = sdf.format(new Date());
+        return s;
+    }
+
+    // 获取今天所在月份(202001)
+    public static String getCurrDateMonth(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+        String s = sdf.format(new Date());
+        return s;
+    }
+
+    // 获取今天所在天(20200101)
+    public static String getCurrDateDay(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String s = sdf.format(new Date());
+        return s;
+    }
 }

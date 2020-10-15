@@ -129,6 +129,24 @@
             $("#table_sysinfo").html(html_content);
         }
 
+        //页面上方数据渲染
+        $.ajax({
+            url: '/common/sysinfo',
+            method: 'GET',
+            contentType: "application/json;charset=utf-8",
+            success: function (rdata) {
+                if(rdata['code'] === 0){
+                    render_sysinfo_table(rdata['data']);
+                }else{
+                    layer.msg("获取系统信息失败！");
+                }
+            },
+            error: function (msg) {
+                layer.msg("服务器无响应 msg:"+msg);
+            }
+
+        });
+
         $.ajax({
             url: '/common/sysinfo',
             method: 'GET',

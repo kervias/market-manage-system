@@ -160,23 +160,23 @@ CREATE TABLE OrderDetail
 	PRIMARY KEY(oid, gid)
 );
 
-CREATE TABLE YearData
+CREATE TABLE YearSale
 (
-    time char(4) not null primary key, -- 年份
+    id char(4) not null primary key, -- 年份
     amount float not null,  -- 总金额
     cost float not null -- 成本
 )
 
-CREATE TABLE MonthData
+CREATE TABLE MonthSale
 (
-    time char(6) not null primary key, -- 月份
+    id char(6) not null primary key, -- 月份
     amount float not null,  -- 总金额
     cost float not null -- 成本
 )
 
-CREATE TABLE DayData
+CREATE TABLE DaySale
 (
-    time char(8) not null primary key, -- 每天
+    id char(8) not null primary key, -- 每天
     amount float not null,  -- 总金额
     cost float not null -- 成本
 )

@@ -1,12 +1,10 @@
 package cf.wellod.service;
 
 import cf.wellod.bean.Goods;
+import cf.wellod.bean.GoodsInfo;
 import cf.wellod.bean.OrderDetail;
 import cf.wellod.bean.OrderList;
-import cf.wellod.mapper.GoodsMapper;
-import cf.wellod.mapper.OrderDetailMapper;
-import cf.wellod.mapper.OrderListMapper;
-import cf.wellod.mapper.StockMapper;
+import cf.wellod.mapper.*;
 import cf.wellod.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -33,6 +31,10 @@ public class OrderListService {
 
     @Autowired
     StockMapper stockMapper;
+
+
+    @Autowired
+    GoodsInfoMapper goodsInfoMapper;
 
     // 创建订单
     @Transactional
@@ -124,14 +126,36 @@ public class OrderListService {
                 retJson.put("msg", "invalid");
             }else{
                 OrderList orderList = orderListMapper.getOrderListById(id);
+                System.out.println(id);
                 List<OrderDetail> list = orderDetailMapper.getOrderDetailsByOid(id);
+                System.out.println(list);
                 orderList.setDetailList(list);
+                //List<Object> list1 = new ArrayList<>();
+                HashMap<String,Object> goodsData = new HashMap<>();
+                HashMap<String,Object> tmpgoodsData;
+                Goods tmpGoods;
+                GoodsInfo tmpgoodsInfo;
+
+                for(OrderDetail orderDetail : list){
+                    tmpGoods = goodsMapper.getGoodsById(orderDetail.getGid());
+                    tmpgoodsInfo = goodsInfoMapper.getGoodsInfoById(tmpGoods.getEN13());
+                    tmpgoodsData = new HashMap<>();
+                    //tmpgoodsData.put("gid", orderDetail.getGid());
+                    tmpgoodsData.put("buyPrice", tmpGoods.getBuyPrice());
+                    tmpgoodsData.put("goodsName", tmpgoodsInfo.getName());
+                    //list1.add(new HashMap<String,Object>().put(orderDetail.getGid()));
+                    goodsData.put(orderDetail.getGid(),tmpgoodsData);
+                }
+
                 retJson.put("code", 0);
                 retJson.put("msg", "success");
                 retJson.put("count", list.size());
                 retJson.put("data", orderList);
+                retJson.put("goodsData", goodsData);
+
             }
         }catch (Exception e){
+            e.printStackTrace();
             retJson.put("code", -1);
             retJson.put("msg", "failed");
             retJson.put("count", 0);

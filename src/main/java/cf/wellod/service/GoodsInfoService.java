@@ -10,6 +10,7 @@ import cf.wellod.utils.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -106,7 +107,6 @@ public class GoodsInfoService {
     }
 
     // 查询记录 By Range
-    @Transactional
     public HashMap<String, Object> getGoodsInfosByRange(Integer page, Integer limit){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         Integer count = goodsInfoMapper.getGoodsInfosCount();

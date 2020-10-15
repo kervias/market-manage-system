@@ -9,6 +9,7 @@ import cf.wellod.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +25,6 @@ public class EmployeeService {
     @Autowired
     RoleMapper roleMapper;
 
-    @Transactional
     public Object getEmployees(Integer page,Integer limit){
         HashMap<String,Object> retJson = new HashMap<>();
         Integer count = employeeMapper.getEmployeesCount();
@@ -61,7 +61,6 @@ public class EmployeeService {
         return retJson;
     }
 
-    @Transactional
     public Object deleteEmployees(List<Integer> list){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -82,7 +81,6 @@ public class EmployeeService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> deleteEmployeeById(Integer id){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -96,7 +94,6 @@ public class EmployeeService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> insertEmployee(Employee employee){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         MD5Util.convertPwd(employee);
@@ -104,24 +101,23 @@ public class EmployeeService {
                 && employee.getUsername() != null && employee.getPassword() != null && employee.getEmail() != null)
         {
             retJson.put("code", 0);
-            retJson.put("msg", "操作成功");
+            retJson.put("msg", "success");
             try{
                 employeeMapper.insertEmployee(employee);
             }catch (Exception e){
                 System.out.println(e);
                 retJson.put("code", -1);
-                retJson.put("msg", "操作失败");
+                retJson.put("msg", "failed");
             }
         }else{
             System.out.println("nijao");
             retJson.put("code", -1);
-            retJson.put("msg", "操作失败");
+            retJson.put("msg", "invalid");
         }
 
         return retJson;
     }
 
-    @Transactional
     public Object updateEmployee(Employee employee){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         MD5Util.convertPwd(employee);

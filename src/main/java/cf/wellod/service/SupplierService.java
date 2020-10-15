@@ -16,7 +16,6 @@ public class SupplierService {
     @Autowired
     SupplierMapper supplierMapper;
 
-    @Transactional
     public HashMap<String,Object> addSupp(Supplier supplier){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -36,7 +35,6 @@ public class SupplierService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> getSuppsByRange(Integer page,Integer limit){
         HashMap<String,Object> retJson = new HashMap<>();
         Integer count = supplierMapper.getSuppCount();
@@ -69,7 +67,6 @@ public class SupplierService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> deleteSuppById(Integer id){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -83,7 +80,6 @@ public class SupplierService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> updateSupp(Supplier supplier){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -104,7 +100,6 @@ public class SupplierService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> deleteSupps(List<Integer> list){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -125,7 +120,6 @@ public class SupplierService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> getSuppsAll(){
         HashMap<String,Object> retJson = new HashMap<>();
         try{

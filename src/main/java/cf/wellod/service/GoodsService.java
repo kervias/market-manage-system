@@ -18,7 +18,6 @@ public class GoodsService {
     @Autowired
     GoodsMapper goodsMapper;
 
-    @Transactional
     public HashMap<String,Object> addGoods(Goods goods){
         System.out.println(goods);
         HashMap<String,Object> retJson = new HashMap<String,Object>();
@@ -66,7 +65,6 @@ public class GoodsService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> deleteGoodsById(String id){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -82,7 +80,6 @@ public class GoodsService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> deleteGoodsesBatch(List<String> list){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -101,7 +98,6 @@ public class GoodsService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> updateGoods(Goods goods){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try {

@@ -16,7 +16,6 @@ public class WareHouseService {
     @Autowired
     WareHouseMapper wareHouseMapper;
 
-    @Transactional
     public HashMap<String,Object> getWareHouseByRange(Integer page,Integer limit){
         HashMap<String,Object> retJson = new HashMap<>();
         Integer count = wareHouseMapper.getWareHousesCount();
@@ -49,7 +48,6 @@ public class WareHouseService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> addWareHouse(WareHouse wareHouse){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -70,7 +68,6 @@ public class WareHouseService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> updateWareHouse(WareHouse wareHouse){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -91,7 +88,6 @@ public class WareHouseService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> deleteWareHouseById(Integer id){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -105,7 +101,6 @@ public class WareHouseService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> deleteWareHousesBatch(List<Integer> list){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -126,7 +121,6 @@ public class WareHouseService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> getWareHousesAll(){
         HashMap<String,Object> retJson = new HashMap<>();
         try{

@@ -16,7 +16,6 @@ public class RoleService {
     @Autowired
     RoleMapper roleMapper;
 
-    @Transactional
     public HashMap<String,Object> getRolesTwo(){
         HashMap<String,Object> retJson = new HashMap<>();
         try{
@@ -34,7 +33,6 @@ public class RoleService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> getRoles(Integer page, Integer limit){
         HashMap<String,Object> retJson = new HashMap<>();
         Integer count = roleMapper.getRolesCount();
@@ -61,7 +59,6 @@ public class RoleService {
         return retJson;
     }
 
-    @Transactional
     public Object deleteRoles(List<Integer> list){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -72,7 +69,7 @@ public class RoleService {
                 retJson.put("msg", "success");
             }else{
                 retJson.put("code", -1);
-                retJson.put("msg", "操作数量不能为0");
+                retJson.put("msg", "invalid");
             }
         }catch (Exception e){
             System.out.println(e);
@@ -82,7 +79,6 @@ public class RoleService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> deleteRoleById(Integer id){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{
@@ -96,28 +92,26 @@ public class RoleService {
         return retJson;
     }
 
-    @Transactional
     public HashMap<String,Object> insertRole(Role role){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         if(role.getName() != null && role.getInfo() != null && role.getId() == null)
         {
             retJson.put("code", 0);
-            retJson.put("msg", "操作成功");
+            retJson.put("msg", "success");
             try{
                 roleMapper.insertRole(role);
             }catch (Exception e){
                 System.out.println(e);
                 retJson.put("code", -1);
-                retJson.put("msg", "操作失败");
+                retJson.put("msg", "failed");
             }
         }else{
             retJson.put("code", -1);
-            retJson.put("msg", "操作失败");
+            retJson.put("msg", "invalid");
         }
         return retJson;
     }
 
-    @Transactional
     public Object updateRole(Role role){
         HashMap<String,Object> retJson = new HashMap<String,Object>();
         try{

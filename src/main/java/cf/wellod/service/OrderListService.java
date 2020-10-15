@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -82,6 +83,7 @@ public class OrderListService {
         }catch (Exception e){
             retJson.put("code", -1);
             retJson.put("msg", "failed");
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
         return retJson;
     }

@@ -1,153 +1,159 @@
 <!DOCTYPE html>
 <html class="x-admin-sm">
-    <head>
-        <meta charset="UTF-8">
-        <title>欢迎页面-X-admin2.2</title>
-        <meta name="renderer" content="webkit">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-        <link rel="stylesheet" href="./css/font.css">
-        <link rel="stylesheet" href="./css/xadmin.css">
-        <script src="./lib/layui/layui.js" charset="utf-8"></script>
-        <script type="text/javascript" src="./js/xadmin.js"></script>
-        <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-        <!--[if lt IE 9]>
-          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-    </head>
-    <body>
-        <div class="layui-fluid">
-            <div class="layui-row layui-col-space15">
-                <div class="layui-col-md12">
-                    <div class="layui-card">
-                        <div class="layui-card-body ">
-                            <blockquote class="layui-elem-quote">欢迎用户：
-                                <span class="x-red" id="username">test</span>！
-                            </blockquote>
-                        </div>
-                    </div>
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.2</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <blockquote class="layui-elem-quote">欢迎用户：
+                        <span class="x-red" id="username">test</span>！
+                    </blockquote>
                 </div>
-                <div class="layui-col-md12">
-                    <div class="layui-card">
-                        <div class="layui-card-header">数据统计</div>
-                        <div class="layui-card-body ">
-                            <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
-                                <li class="layui-col-md2 layui-col-xs6">
-                                    <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>员工数</h3>
-                                        <p>
-                                            <cite id="emp_num"></cite></p>
-                                    </a>
-                                </li>
-                                <li class="layui-col-md2 layui-col-xs6">
-                                    <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>供应商数</h3>
-                                        <p>
-                                            <cite id="supp_num">12</cite></p>
-                                    </a>
-                                </li>
-                                <li class="layui-col-md2 layui-col-xs6">
-                                    <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>商品信息数</h3>
-                                        <p>
-                                            <cite id="goods_num">99</cite></p>
-                                    </a>
-                                </li>
-                                <li class="layui-col-md2 layui-col-xs6">
-                                    <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>商品类别数</h3>
-                                        <p>
-                                            <cite id="goods_type_num">67</cite></p>
-                                    </a>
-                                </li>
-                                <li class="layui-col-md2 layui-col-xs6">
-                                    <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>仓库数</h3>
-                                        <p>
-                                            <cite id="whouse_num">99</cite></p>
-                                    </a>
-                                </li>
-                                <li class="layui-col-md2 layui-col-xs6">
-                                    <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>订单数</h3>
-                                        <p>
-                                            <cite id="order_num">67</cite></p>
-                                    </a>
-                                </li>
-                                <li class="layui-col-md4 layui-col-xs6 ">
-                                    <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>销售总金额(元)</h3>
-                                        <p>
-                                            <cite id="amount">6766</cite></p>
-                                    </a>
-                                </li>
-                                <li class="layui-col-md4 layui-col-xs6">
-                                    <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>销售总成本(元)</h3>
-                                        <p>
-                                            <cite id="cost">6766</cite></p>
-                                    </a>
-                                </li>
-                                <li class="layui-col-md4 layui-col-xs6">
-                                    <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>销售总利润(元)</h3>
-                                        <p>
-                                            <cite id="profit">6766</cite></p>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-col-md12">
-                    <div class="layui-card">
-                        <div class="layui-card-header">系统信息</div>
-                        <div class="layui-card-body ">
-                            <table class="layui-table" id="table_sysinfo">
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-col-md12">
-                    <div class="layui-card">
-                        <div class="layui-card-header">开发团队</div>
-                        <div class="layui-card-body ">
-                            <table class="layui-table">
-                                <tbody>
-                                    <tr>
-                                        <th>版权所有</th>
-                                        <td>
-                                            <a href="http://x.xuebingsi.com/" target="_blank">基于前端模板x-amdin开发</a></td>
-                                    </tr>
-                                    <tr>
-                                        <th>开发者</th>
-                                        <td>陈祥志、明新宇</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <style id="welcome_style"></style>
-                <div class="layui-col-md12">
-                    <blockquote class="layui-elem-quote layui-quote-nm">软件工程师综合训练课程设计</blockquote></div>
             </div>
         </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">数据统计</div>
+                <div class="layui-card-body ">
+                    <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>员工数</h3>
+                                <p>
+                                    <cite id="emp_num"></cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>供应商数</h3>
+                                <p>
+                                    <cite id="supp_num">12</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>商品信息数</h3>
+                                <p>
+                                    <cite id="goods_num">99</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>商品类别数</h3>
+                                <p>
+                                    <cite id="goods_type_num">67</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>仓库数</h3>
+                                <p>
+                                    <cite id="whouse_num">99</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md2 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>订单数</h3>
+                                <p>
+                                    <cite id="order_num">67</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md4 layui-col-xs6 ">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>销售总金额(元)</h3>
+                                <p>
+                                    <cite id="amount">6766</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md4 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>销售总成本(元)</h3>
+                                <p>
+                                    <cite id="cost">6766</cite></p>
+                            </a>
+                        </li>
+                        <li class="layui-col-md4 layui-col-xs6">
+                            <a href="javascript:;" class="x-admin-backlog-body">
+                                <h3>销售总利润(元)</h3>
+                                <p>
+                                    <cite id="profit">6766</cite></p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
         </div>
-    </body>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">系统信息</div>
+                <div class="layui-card-body ">
+                    <table class="layui-table" id="table_sysinfo">
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">开发团队</div>
+                <div class="layui-card-body ">
+                    <table class="layui-table">
+                        <tbody>
+                        <tr>
+                            <th>开发者</th>
+                            <td>陈祥志、明新宇</td>
+                        </tr>
+                        <tr>
+                            <th>技术选型</th>
+                            <td>
+                                前端基于x-admin模板开发，使用了jquery、layui组件。
+                                后端基于SpringBoot开发，使用了SSM框架
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <style id="welcome_style"></style>
+        <div class="layui-col-md12">
+            <blockquote class="layui-elem-quote layui-quote-nm">软件工程师综合训练项目</blockquote>
+        </div>
+    </div>
+</div>
+</div>
+</body>
 
 
 <script>
     layui.use(['jquery'], function () {
-        var $=layui.jquery;
+        var $ = layui.jquery;
 
         // 渲染系统信息表格
         function render_sysinfo_table(data) {
             var html_content = "<tbody>";
-            for(var key in data)
-                html_content += '<tr><th>'+key+'</th><td>'+data[key]+'</td></tr>';
-            html_content+= "</tbody>";
+            for (var key in data)
+                html_content += '<tr><th>' + key + '</th><td>' + data[key] + '</td></tr>';
+            html_content += "</tbody>";
             $("#table_sysinfo").html(html_content);
         }
 
@@ -157,7 +163,7 @@
             method: 'GET',
             contentType: "application/json;charset=utf-8",
             success: function (rdata) {
-                if(rdata['code'] === 0){
+                if (rdata['code'] === 0) {
                     console.log(rdata);
                     $('#emp_num').text(rdata['emp_num']);
                     $('#supp_num').text(rdata['supp_num']);
@@ -168,12 +174,12 @@
                     $('#amount').text(rdata['amount']);
                     $('#cost').text(rdata['cost']);
                     $('#profit').text(rdata['amount'] - rdata['cost']);
-                }else{
+                } else {
                     layer.msg("获取数据库信息失败！");
                 }
             },
             error: function (msg) {
-                layer.msg("服务器无响应 msg:"+msg);
+                layer.msg("服务器无响应 msg:" + msg);
             }
 
         });
@@ -183,14 +189,14 @@
             method: 'GET',
             contentType: "application/json;charset=utf-8",
             success: function (rdata) {
-                if(rdata['code'] === 0){
+                if (rdata['code'] === 0) {
                     render_sysinfo_table(rdata['data']);
-                }else{
+                } else {
                     layer.msg("获取系统信息失败！");
                 }
             },
             error: function (msg) {
-                layer.msg("服务器无响应 msg:"+msg);
+                layer.msg("服务器无响应 msg:" + msg);
             }
 
         });
@@ -200,14 +206,14 @@
             method: 'GET',
             contentType: "application/json;charset=utf-8",
             success: function (rdata) {
-                if(rdata['code'] === 0){
+                if (rdata['code'] === 0) {
                     $("#username").text(rdata['username']);
-                }else{
+                } else {
                     layer.msg("获取用户信息失败！");
                 }
             },
             error: function (msg) {
-                layer.msg("服务器无响应 msg:"+msg);
+                layer.msg("服务器无响应 msg:" + msg);
             }
 
         });

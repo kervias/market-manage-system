@@ -54,7 +54,17 @@
             ,limits: [5,10,20,30,40,50,100],
             cellMinWidth: 80,
            // defaultToolbar: ['filter']
-            toolbar: "#toolbarDemo"
+            toolbar: "#toolbarDemo",
+            parseData: function (res) {
+                for(var item in res['data']){
+                    //console.log(item)
+                    if(res['data'][item]['reason'] === 0)
+                        res['data'][item]['reason'] = "出库到货架";
+                    else
+                        res['data'][item]['reason'] = "其他";
+                }
+
+            }
             ,cols: [[
                 {type: 'numbers', fixed: 'left', 'title': '序号'},
                 {field: 'id', title: 'ID',sort: true},

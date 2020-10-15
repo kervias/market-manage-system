@@ -24,13 +24,13 @@ public class GoodsService {
         try {
             if(goods.getEN13() == null || goods.getExpDate() == null || goods.getUnit() == null
                     || goods.getBuyPrice() == null || goods.getPrice() == null || goods.getDiscount() > 1
-                    || goods.getDiscount() < 0
+                    || goods.getDiscount() < 0 || goods.getBatch() == null || goods.getBatch().length() != 8
             ){
                 retJson.put("code", -1);
                 retJson.put("msg", "invalid");
             }else{
-                String batchstring = CommonUtil.generateGoodsBatchByProdDate(goods.getProdDate());
-                goods.setBatch(batchstring);
+//                String batchstring = CommonUtil.generateGoodsBatchByProdDate(goods.getProdDate());
+//                goods.setBatch(batchstring);
                 goods.setId(CommonUtil.generateGoodsIdByBatch(goods.getBatch()));
                 //查询该ID在表中是否存在
                 Goods goods_1;

@@ -55,7 +55,7 @@ public class Goods {
     }
 
     public void setBatch(String batch) {
-        this.batch = batch;
+        this.batch = StringUtils.trim(batch);
     }
 
     public Date getProdDate() {

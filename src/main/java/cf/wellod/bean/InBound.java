@@ -6,15 +6,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 public class InBound {
-    Integer id;
-    String gid; //商品ID
-    Integer wid; //仓库ID
-    Integer eid; // EmployeeID
+    private Integer id;
+    private String gid; //商品ID
+    private Integer wid; //仓库ID
+    private Integer eid; // EmployeeID
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    Date opTime; // 操作日期
-    Integer quantity; //操作数量
-    Integer threshold; // 阈值
+    private Date opTime; // 操作日期
+    private Integer quantity; //操作数量
+    private Integer threshold; // 阈值
 
     @Override
     public String toString() {

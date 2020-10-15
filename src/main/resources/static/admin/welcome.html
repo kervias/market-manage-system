@@ -35,46 +35,68 @@
                             <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
                                 <li class="layui-col-md2 layui-col-xs6">
                                     <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>文章数</h3>
+                                        <h3>员工数</h3>
                                         <p>
-                                            <cite>66</cite></p>
+                                            <cite id="emp_num"></cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-md2 layui-col-xs6">
                                     <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>会员数</h3>
+                                        <h3>供应商数</h3>
                                         <p>
-                                            <cite>12</cite></p>
+                                            <cite id="supp_num">12</cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-md2 layui-col-xs6">
                                     <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>回复数</h3>
+                                        <h3>商品信息数</h3>
                                         <p>
-                                            <cite>99</cite></p>
+                                            <cite id="goods_num">99</cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-md2 layui-col-xs6">
                                     <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>商品数</h3>
+                                        <h3>商品类别数</h3>
                                         <p>
-                                            <cite>67</cite></p>
+                                            <cite id="goods_type_num">67</cite></p>
                                     </a>
                                 </li>
                                 <li class="layui-col-md2 layui-col-xs6">
                                     <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>文章数</h3>
+                                        <h3>仓库数</h3>
                                         <p>
-                                            <cite>67</cite></p>
+                                            <cite id="whouse_num">99</cite></p>
                                     </a>
                                 </li>
-                                <li class="layui-col-md2 layui-col-xs6 ">
+                                <li class="layui-col-md2 layui-col-xs6">
                                     <a href="javascript:;" class="x-admin-backlog-body">
-                                        <h3>文章数</h3>
+                                        <h3>订单数</h3>
                                         <p>
-                                            <cite>6766</cite></p>
+                                            <cite id="order_num">67</cite></p>
                                     </a>
                                 </li>
+                                <li class="layui-col-md4 layui-col-xs6 ">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>销售总金额(元)</h3>
+                                        <p>
+                                            <cite id="amount">6766</cite></p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md4 layui-col-xs6">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>销售总成本(元)</h3>
+                                        <p>
+                                            <cite id="cost">6766</cite></p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md4 layui-col-xs6">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>销售总利润(元)</h3>
+                                        <p>
+                                            <cite id="profit">6766</cite></p>
+                                    </a>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -131,14 +153,23 @@
 
         //页面上方数据渲染
         $.ajax({
-            url: '/common/sysinfo',
+            url: '/common/statistics',
             method: 'GET',
             contentType: "application/json;charset=utf-8",
             success: function (rdata) {
                 if(rdata['code'] === 0){
-                    render_sysinfo_table(rdata['data']);
+                    console.log(rdata);
+                    $('#emp_num').text(rdata['emp_num']);
+                    $('#supp_num').text(rdata['supp_num']);
+                    $('#goods_num').text(rdata['goods_num']);
+                    $('#goods_type_num').text(rdata['goods_type_num']);
+                    $('#whouse_num').text(rdata['whouse_num']);
+                    $('#order_num').text(rdata['order_num']);
+                    $('#amount').text(rdata['amount']);
+                    $('#cost').text(rdata['cost']);
+                    $('#profit').text(rdata['amount'] - rdata['cost']);
                 }else{
-                    layer.msg("获取系统信息失败！");
+                    layer.msg("获取数据库信息失败！");
                 }
             },
             error: function (msg) {

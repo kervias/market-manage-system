@@ -273,6 +273,7 @@
                             table.reload('orderSelectTable',{
                                 data:orderData
                             })
+                            table.reload(baseConfig["table-render-url"]);
                         } else {
                             layer.msg("订单创建失败！" + rdata['msg']);
                         }
@@ -283,6 +284,7 @@
 
                 });
             });
+
 
 
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。

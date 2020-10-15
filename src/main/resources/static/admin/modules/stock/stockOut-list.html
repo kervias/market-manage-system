@@ -59,9 +59,9 @@
                 for(var item in res['data']){
                     //console.log(item)
                     if(res['data'][item]['reason'] === 0)
-                        res['data'][item]['reason'] = "出库到货架";
-                    else
                         res['data'][item]['reason'] = "其他";
+                    else
+                        res['data'][item]['reason'] = "上架";
                 }
 
             }

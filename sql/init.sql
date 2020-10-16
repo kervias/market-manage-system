@@ -1,3 +1,8 @@
+/*
+    数据库版本： SQL Server 2008
+    以下为初始化数据相关语句，注意代码最后创建了一个默认超级管理员用户
+ */
+
 create database MARKET on
 (
 	name=MARKET_DB2,
@@ -14,7 +19,9 @@ log on
 	maxsize=300,
 	filegrowth=5%
 )COLLATE Chinese_PRC_CI_AS;
+
 go;
+
 use MARKET;
 
 
@@ -56,10 +63,10 @@ CREATE TABLE Goods
 	expDate tinyint not null, -- 保质期
 	unit varchar(8) not null, --单位：盒、个...
 	FOREIGN KEY(EN13) REFERENCES GoodsInfo(EN13),
-	buyPrice float not null, -- 进价
-	price float not null, -- 售价
+	buyPrice float not null check(buyPrice >= 0), -- 售价
+	price float not null check(price >= 0), -- 进价
 	discount float not null check(discount >= 0 and discount <= 1), -- 折扣
-	shelfQuantity int not null,
+	shelfQuantity int not null check(shelfQuantity >= 0),
 );
 
 
@@ -102,8 +109,8 @@ CREATE TABLE Stock
 (
 	gid char(12) not null,
 	wid int not null,
-	quantity int not null,
-	threshold int not null,
+	quantity int not null check(quantity >= 0),
+	threshold int not null check(threshold >= 0),
 	FOREIGN KEY(gid) REFERENCES Goods(id),
 	FOREIGN KEY(wid) REFERENCES WareHouse(id),
 	PRIMARY KEY(gid,wid)
@@ -117,7 +124,7 @@ CREATE TABLE InBound
 	wid int not null,
 	eid int not null,
 	opTime datetime not null,
-	quantity int not null,
+	quantity int not null check(quantity > 0),
 	FOREIGN KEY(gid) REFERENCES Goods(id),
 	FOREIGN KEY(wid) REFERENCES WareHouse(id),
 	FOREIGN KEY(eid) REFERENCES Employee(id)
@@ -131,8 +138,8 @@ CREATE TABLE OutBound
 	wid int not null,
 	eid int not null,
 	opTime datetime not null,
-	quantity int not null,
-	reason tinyint not null,  -- 出库原因
+	quantity int not null check(quantity > 0),
+	reason tinyint not null check (reason >= 0 and reason <=1),  -- 出库原因
 	FOREIGN KEY(gid) REFERENCES Goods(id),
 	FOREIGN KEY(wid) REFERENCES WareHouse(id),
 	FOREIGN KEY(eid) REFERENCES Employee(id)
@@ -144,8 +151,8 @@ CREATE TABLE OrderList
 	id char(24) not null PRIMARY KEY, -- 订单编号
 	createTime datetime not null,  -- 订单创建时间
 	payTime datetime,    -- 订单付款时间
-	amount float not null, -- 订单总金额
-	status smallint not null, -- 订单支付状态
+	amount float not null check(amount >= 0), -- 订单总金额
+	status smallint not null check(status >=0 and status <=2), -- 订单支付状态
 );
 
 -- 订单明细
@@ -153,7 +160,7 @@ CREATE TABLE OrderDetail
 (
 	gid char(12) not null,
 	oid char(24) not null,
-	quantity int not null,
+	quantity int not null check(quantity > 0),
 	discount float not null check(discount >= 0 and discount <= 1),
 	FOREIGN KEY(oid) REFERENCES OrderList(id),
 	FOREIGN KEY(gid) REFERENCES Goods(id),
@@ -163,22 +170,22 @@ CREATE TABLE OrderDetail
 CREATE TABLE YearSale
 (
     id char(4) not null primary key, -- 年份
-    amount float not null,  -- 总金额
-    cost float not null -- 成本
+    amount float not null check(amount >= 0),  -- 总金额
+    cost float not null check(cost >= 0) -- 成本
 )
 
 CREATE TABLE MonthSale
 (
     id char(6) not null primary key, -- 月份
-    amount float not null,  -- 总金额
-    cost float not null -- 成本
+    amount float not null check(amount >= 0),  -- 总金额
+    cost float not null check(cost >= 0) -- 成本
 )
 
 CREATE TABLE DaySale
 (
     id char(8) not null primary key, -- 每天
-    amount float not null,  -- 总金额
-    cost float not null -- 成本
+    amount float not null check(amount >= 0),  -- 总金额
+    cost float not null check(cost >= 0) -- 成本
 )
 
 

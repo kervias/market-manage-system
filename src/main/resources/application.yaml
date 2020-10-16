@@ -10,7 +10,7 @@ spring:
     password: cxz123   # 数据库密码
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     #url: jdbc:sqlserver://204.44.94.180:1401;DatabaseName=MARKET
-    url: jdbc:sqlserver://127.0.0.1:1445;DatabaseName=MARKET  #数据库 URL
+    url: jdbc:sqlserver://127.0.0.1:1445;DatabaseName=MARKET  #数据库URL
     type: com.alibaba.druid.pool.DruidDataSource
 
     # other config

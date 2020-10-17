@@ -10,12 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginIntercepter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(request.getSession().getAttribute("eid") == null){
-            StringBuffer url = request.getRequestURL();
-            String tempContextUrl = url.delete(url.length() - request.getRequestURI().length(), url.length()).append("/").toString();
+        StringBuffer url = request.getRequestURL();
+        String tempContextUrl = url.delete(url.length() - request.getRequestURI().length(), url.length()).append("/").toString();
+        if(request.getSession().getAttribute("eid") == null && !request.getRequestURL().toString().equals(tempContextUrl+"admin/login.html")){
             response.sendRedirect(tempContextUrl+"admin/login.html");
             return false;
         }
+        if(request.getSession().getAttribute("eid") != null && request.getRequestURI().equals("/admin/login.html")){
+            response.sendRedirect(tempContextUrl+"admin/index.html");
+            return false;
+        }
+
         return true;
     }
 

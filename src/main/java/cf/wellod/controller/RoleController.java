@@ -23,34 +23,34 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
-    @PostMapping("/add")
-    public Object addRole(@RequestBody Role role){
-        HashMap<String, Object> retJson = new HashMap<String, Object>();
-        //role.setCreateTime(DateUtil.getCurrDateTime());
-        if(role.getName().length() == 0 || role.getInfo().length() == 0){
-            retJson.put("code",-1);
-            retJson.put("msg", "字段不能为空");
-        }else{
-            try{
-                roleMapper.insertRole(role);
-                retJson.put("code",0);
-                retJson.put("msg", "success");
-            }catch (Exception e){
-                System.out.println(e);
-                retJson.put("code",-1);
-                retJson.put("msg", "failed");
-            }
-        }
-        return retJson;
-    }
+//    @PostMapping("/add")
+//    public Object addRole(@RequestBody Role role){
+//        HashMap<String, Object> retJson = new HashMap<String, Object>();
+//        //role.setCreateTime(DateUtil.getCurrDateTime());
+//        if(role.getName().length() == 0 || role.getInfo().length() == 0){
+//            retJson.put("code",-1);
+//            retJson.put("msg", "字段不能为空");
+//        }else{
+//            try{
+//                roleMapper.insertRole(role);
+//                retJson.put("code",0);
+//                retJson.put("msg", "success");
+//            }catch (Exception e){
+//                System.out.println(e);
+//                retJson.put("code",-1);
+//                retJson.put("msg", "failed");
+//            }
+//        }
+//        return retJson;
+//    }
 
-    //更新数据
+    //获取所有role
     @GetMapping("/admin/roless")
     public HashMap<String,Object> getRolesTwo(){
         return roleService.getRolesTwo();
     }
 
-    //更新role表格数据
+    //获取一页role
     @GetMapping("/admin/roles")
     public HashMap<String,Object> getRoles(@RequestParam("page")Integer page, @RequestParam("limit") Integer limit){
         return roleService.getRoles(page,limit);

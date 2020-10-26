@@ -53,7 +53,7 @@ CREATE TABLE GoodsInfo
 	FOREIGN KEY(cid) REFERENCES Category(id)
 );
 
--- 商品表（包括生成批次）
+-- 商品表
 CREATE TABLE Goods
 (
 	id char(12) not null PRIMARY KEY,
@@ -152,7 +152,7 @@ CREATE TABLE OrderList
 	createTime datetime not null,  -- 订单创建时间
 	payTime datetime,    -- 订单付款时间
 	amount float not null check(amount >= 0), -- 订单总金额
-	status smallint not null check(status >=0 and status <=2), -- 订单支付状态
+	status tinyint not null check(status >=0 and status <=2), -- 订单支付状态
 );
 
 -- 订单明细

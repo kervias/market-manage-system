@@ -39,4 +39,5 @@ mybatis:  # 指定全局配置文件位置
   # 指定sql映射文件位置
   mapper-locations: classpath:mybatis/mapper/*.xml
 
-
+server:
+  port: 8081

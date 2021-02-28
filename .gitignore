@@ -14,6 +14,11 @@ target/
 .springBeans
 .sts4-cache
 
+### MAVEN ###
+.mvn
+mvnw
+mvnw.cmd
+
 ### IntelliJ IDEA ###
 .idea
 *.iws

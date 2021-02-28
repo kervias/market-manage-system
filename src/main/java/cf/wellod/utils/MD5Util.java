@@ -21,7 +21,6 @@ public class MD5Util {
         }
         char[] charArray = inStr.toCharArray();
         byte[] byteArray = new byte[charArray.length];
-
         for (int i = 0; i < charArray.length; i++)
             byteArray[i] = (byte) charArray[i];
         byte[] md5Bytes = md5.digest(byteArray);
